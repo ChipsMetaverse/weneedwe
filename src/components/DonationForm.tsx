@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -31,9 +30,10 @@ const predefinedAmounts = [10, 25, 50, 100, 250, 500];
 
 interface DonationFormProps {
   goalAmount?: number;
+  onSubmit?: (data: DonationInput) => void;
 }
 
-const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000 }) => {
+const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000, onSubmit }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const { createDonation, totalDonationAmount, isPending } = useDonations();
@@ -53,10 +53,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000 }) => {
 
   const progress = Math.min(Math.round((totalDonationAmount / goalAmount) * 100), 100);
 
-  const onSubmit = (data: FormValues) => {
-    // In a real app, we would process the payment with Stripe/PayPal here
-    // For now, we'll just record the donation in Supabase
-    
+  const onFormSubmit = (data: FormValues) => {
     const donationData: DonationInput = {
       amount: data.amount,
       method: data.method,
@@ -64,10 +61,13 @@ const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000 }) => {
       email: data.email,
     };
     
-    createDonation(donationData);
-    setIsDialogOpen(false);
-    
-    toast.success("Thank you for your donation!");
+    if (onSubmit) {
+      onSubmit(donationData);
+    } else {
+      createDonation(donationData);
+      setIsDialogOpen(false);
+      toast.success("Thank you for your donation!");
+    }
   };
 
   return (
@@ -108,7 +108,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000 }) => {
               <Button className="w-full">Donate Now</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onFormSubmit)}>
                 <DialogHeader>
                   <DialogTitle>Make a Donation</DialogTitle>
                   <DialogDescription>
