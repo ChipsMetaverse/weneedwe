@@ -7,9 +7,11 @@ import Index from './pages/Index'
 import NotFound from './pages/NotFound'
 import DataInitializer from './components/DataInitializer'
 import SupportChat from './components/SupportChat'
-import DashboardRouter from './components/DashboardRouter'
 import { AuthProvider } from './context/AuthContext'
 import Auth from './pages/Auth'
+
+// Dashboard component for admin users will be conditionally rendered inside the protected route
+import AdminDashboard from './components/AdminDashboard'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <Auth />
+  },
+  {
+    path: '/admin',
+    element: <AdminDashboard />
   }
 ])
 
@@ -29,7 +35,6 @@ function App() {
       <DataInitializer />
       <RouterProvider router={router} />
       <SupportChat />
-      <DashboardRouter />
       <Toaster position="top-right" />
     </AuthProvider>
   )

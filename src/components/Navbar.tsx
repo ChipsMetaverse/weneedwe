@@ -2,15 +2,16 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const { user, signOut, loading } = useAuth();
 
   return (
-    <nav className="bg-white shadow-sm py-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="bg-white shadow-sm py-4 w-full">
+      <div className="container mx-auto flex justify-between items-center px-4">
         <div className="flex items-center">
-          <a href="/" className="text-2xl font-bold text-primary">WeneedWe</a>
+          <Link to="/" className="text-2xl font-bold text-primary">WeneedWe</Link>
         </div>
         <div className="hidden md:flex space-x-6">
           <a href="#features" className="text-gray-600 hover:text-primary">Features</a>
@@ -24,9 +25,9 @@ const Navbar = () => {
             user ? (
               <Button variant="outline" onClick={signOut}>Sign Out</Button>
             ) : (
-              <a href="/auth">
+              <Link to="/auth">
                 <Button>Sign In</Button>
-              </a>
+              </Link>
             )
           )}
         </div>
