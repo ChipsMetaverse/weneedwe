@@ -2,6 +2,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Json } from "@/integrations/supabase/types";
 
 export interface Media {
   id: string;
@@ -43,7 +44,11 @@ export const useMedia = () => {
       throw error;
     }
 
-    return data || [];
+    // Transform the data to ensure proper typing
+    return (data || []).map(item => ({
+      ...item,
+      metadata: item.metadata as Media['metadata']
+    }));
   };
 
   const createMedia = async (media: MediaInput): Promise<Media> => {
@@ -59,8 +64,11 @@ export const useMedia = () => {
       throw error;
     }
 
-    toast.success("Media uploaded successfully!");
-    return data;
+    // Transform to ensure proper typing
+    return {
+      ...data,
+      metadata: data.metadata as Media['metadata']
+    };
   };
 
   const mediaQuery = useQuery({

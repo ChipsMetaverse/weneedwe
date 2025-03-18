@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { useIntersectionObserver } from '@/hooks/use-mobile';
+import { useIntersectionObserver } from '@/utils/animations';
 import DonationForm from './DonationForm';
 
 const Hero = () => {
-  const { ref, inView } = useIntersectionObserver({
+  const { ref, isVisible: inView } = useIntersectionObserver({
     threshold: 0.2,
     triggerOnce: true
   });
