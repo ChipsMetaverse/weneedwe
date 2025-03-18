@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -45,6 +46,7 @@ export const useBlog = () => {
       return data || [];
     } catch (err) {
       console.error("Error in fetchBlogPosts:", err);
+      // Return empty array instead of throwing to prevent UI from breaking
       return [];
     }
   };
