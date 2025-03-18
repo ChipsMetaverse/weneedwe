@@ -23,6 +23,12 @@ npm run preview
 
 # Lint code
 npm run lint
+
+# Type checking
+npx tsc --noEmit
+
+# Run Prettier (requires installing prettier)
+npx prettier --write src/
 ```
 
 ## Code Style Guidelines
@@ -33,7 +39,9 @@ npm run lint
   - Functions/variables: camelCase
   - Constants: UPPER_SNAKE_CASE
   - Files: kebab-case.tsx for components, camelCase.ts for utilities
-- **Types**: Use TypeScript strictly, avoid `any`
-- **Error Handling**: Use try/catch with proper logging
-- **Component Structure**: Use functional components with hooks
-- **State Management**: Prefer React Context for global state
+- **Types**: TypeScript with strictNullChecks disabled (see tsconfig.json). Path aliases use @/* for src/ directory
+- **Error Handling**: Use try/catch with proper logging, especially for Supabase operations
+- **Component Structure**: Use functional components with hooks, prefer composition over inheritance
+- **State Management**: React Context for global state, react-hook-form for forms
+- **Routing**: Uses react-router-dom for page navigation
+- **API Calls**: Use @tanstack/react-query for data fetching and cache management
