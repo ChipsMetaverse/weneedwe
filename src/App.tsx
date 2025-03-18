@@ -1,7 +1,7 @@
 
 import React from 'react'
 import './App.css'
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from '@/components/ui/sonner'
 import Index from './pages/Index'
 import NotFound from './pages/NotFound'
@@ -9,11 +9,9 @@ import DataInitializer from './components/DataInitializer'
 import SupportChat from './components/SupportChat'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import Auth from './pages/Auth'
-
-// Dashboard component for admin users
 import AdminDashboard from './components/AdminDashboard'
 
-// Protected route component
+// Protected route component for admin users
 const ProtectedAdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, profile, loading } = useAuth();
   
@@ -28,28 +26,21 @@ const ProtectedAdminRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// Router configuration
-const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/admin" element={
-        <ProtectedAdminRoute>
-          <AdminDashboard />
-        </ProtectedAdminRoute>
-      } />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
-};
-
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <DataInitializer />
-        <AppRoutes />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          } />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         <SupportChat />
         <Toaster position="top-right" />
       </AuthProvider>
