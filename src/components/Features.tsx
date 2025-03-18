@@ -12,48 +12,49 @@ import {
   Leaf
 } from 'lucide-react';
 
+// Updated services based on weneedwe.org content
 const features = [
   {
-    title: 'Community Support',
-    description: 'Providing essential resources and support to families and individuals facing challenging situations.',
+    title: 'BW-SELF Advocacy',
+    description: 'Our advocacy program empowers Black Women to navigate healthcare systems, pursue education, and access community resources.',
     icon: HeartHandshake,
     delay: 0,
     color: 'bg-red-100 text-red-600'
   },
   {
+    title: 'HIV Support Services',
+    description: 'We provide comprehensive support for individuals living with HIV, including linkage to medical care, counseling, and peer support groups.',
+    icon: PlusCircle,
+    delay: 0.1,
+    color: 'bg-green-100 text-green-600'
+  },
+  {
+    title: 'Youth Empowerment',
+    description: 'Our youth programs focus on developing leadership skills, promoting academic achievement, and fostering civic engagement among young people.',
+    icon: BookOpen,
+    delay: 0.2,
+    color: 'bg-purple-100 text-purple-600'
+  },
+  {
+    title: 'Community Health Education',
+    description: 'We offer workshops and educational programs on various health topics, including nutrition, physical activity, and chronic disease prevention.',
+    icon: Utensils,
+    delay: 0.3,
+    color: 'bg-orange-100 text-orange-600'
+  },
+  {
     title: 'Education Programs',
     description: 'Offering educational resources, tutoring, and mentorship for children and adults in underserved communities.',
     icon: GraduationCap,
-    delay: 0.1,
+    delay: 0.4,
     color: 'bg-blue-100 text-blue-600'
   },
   {
     title: 'Housing Assistance',
     description: 'Helping families and individuals find safe, affordable housing and providing emergency shelter services.',
     icon: Home,
-    delay: 0.2,
-    color: 'bg-amber-100 text-amber-600'
-  },
-  {
-    title: 'Healthcare Access',
-    description: 'Connecting community members with affordable healthcare services and wellness resources.',
-    icon: PlusCircle,
-    delay: 0.3,
-    color: 'bg-green-100 text-green-600'
-  },
-  {
-    title: 'Youth Development',
-    description: 'Creating opportunities for youth to learn, grow, and develop leadership skills through mentorship and activities.',
-    icon: BookOpen,
-    delay: 0.4,
-    color: 'bg-purple-100 text-purple-600'
-  },
-  {
-    title: 'Food Security',
-    description: 'Providing nutritious meals, food pantry services, and nutrition education to combat hunger in our community.',
-    icon: Utensils,
     delay: 0.5,
-    color: 'bg-orange-100 text-orange-600'
+    color: 'bg-amber-100 text-amber-600'
   },
   {
     title: 'Senior Services',

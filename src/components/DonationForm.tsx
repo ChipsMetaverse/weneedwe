@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { useDonations, DonationInput } from '@/hooks/useDonations';
@@ -19,39 +18,28 @@ const formSchema = z.object({
   ),
   name: z.string().min(2, 'Name must be at least 2 characters').max(100),
   email: z.string().email('Invalid email address'),
-  method: z.enum(['credit_card', 'paypal'], {
+  method: z.enum(['credit_card', 'paypal', 'apple_pay', 'google_pay', 'zelle', 'cash_app'], {
     required_error: 'Please select a payment method',
   }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-const predefinedAmounts = [10, 25, 50, 100, 250, 500];
-
 interface DonationFormProps {
-  goalAmount?: number;
   onSubmit?: (data: DonationInput) => void;
 }
 
-const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000, onSubmit }) => {
+const DonationForm: React.FC<DonationFormProps> = ({ onSubmit }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
-  const { createDonation, totalDonationAmount, isPending } = useDonations();
+  const { createDonation, isPending } = useDonations();
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       amount: 25,
       method: 'credit_card',
     },
   });
-
-  const handleAmountSelect = (amount: number) => {
-    setSelectedAmount(amount);
-    setValue('amount', amount);
-  };
-
-  const progress = Math.min(Math.round((totalDonationAmount / goalAmount) * 100), 100);
 
   const onFormSubmit = (data: FormValues) => {
     const donationData: DonationInput = {
@@ -66,7 +54,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000, onSubmi
     } else {
       createDonation(donationData);
       setIsDialogOpen(false);
-      toast.success("Thank you for your donation!");
+      toast.success("Thank you for your support!");
     }
   };
 
@@ -75,50 +63,30 @@ const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000, onSubmi
       <Card className="border-primary/20">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Support Our Mission</CardTitle>
-          <CardDescription>Help us reach our donation goal</CardDescription>
+          <CardDescription>Your support makes a difference in our community</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="mb-4">
-            <div className="flex justify-between text-sm mb-1">
-              <span>${totalDonationAmount.toLocaleString()}</span>
-              <span>${goalAmount.toLocaleString()}</span>
-            </div>
-            <Progress value={progress} className="h-2" />
-            <p className="text-xs text-muted-foreground mt-1 text-center">
-              {progress}% of our ${goalAmount.toLocaleString()} goal
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-3 gap-2 my-4">
-            {predefinedAmounts.map((amount) => (
-              <Button
-                key={amount}
-                variant={selectedAmount === amount ? "default" : "outline"}
-                className="font-semibold"
-                onClick={() => handleAmountSelect(amount)}
-              >
-                ${amount}
-              </Button>
-            ))}
-          </div>
+          <p className="text-sm text-muted-foreground mb-4">
+            Your contribution helps us continue providing essential services to those who need it most.
+          </p>
         </CardContent>
         <CardFooter>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="w-full">Donate Now</Button>
+              <Button className="w-full">Support Our Work</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <form onSubmit={handleSubmit(onFormSubmit)}>
                 <DialogHeader>
-                  <DialogTitle>Make a Donation</DialogTitle>
+                  <DialogTitle>Make a Contribution</DialogTitle>
                   <DialogDescription>
-                    Your support helps us continue our community work.
+                    Your support helps us serve our community.
                   </DialogDescription>
                 </DialogHeader>
                 
                 <div className="grid gap-4 py-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="amount">Donation Amount ($)</Label>
+                    <Label htmlFor="amount">Amount ($)</Label>
                     <Input
                       id="amount"
                       type="number"
@@ -158,13 +126,31 @@ const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000, onSubmi
                   <div className="grid gap-2">
                     <Label>Payment Method</Label>
                     <RadioGroup defaultValue="credit_card" {...register('method')}>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="credit_card" id="credit_card" />
-                        <Label htmlFor="credit_card">Credit Card</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="paypal" id="paypal" />
-                        <Label htmlFor="paypal">PayPal</Label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="credit_card" id="credit_card" />
+                          <Label htmlFor="credit_card">Credit Card</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="paypal" id="paypal" />
+                          <Label htmlFor="paypal">PayPal</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="apple_pay" id="apple_pay" />
+                          <Label htmlFor="apple_pay">Apple Pay</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="google_pay" id="google_pay" />
+                          <Label htmlFor="google_pay">Google Pay</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="zelle" id="zelle" />
+                          <Label htmlFor="zelle">Zelle</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="cash_app" id="cash_app" />
+                          <Label htmlFor="cash_app">Cash App</Label>
+                        </div>
                       </div>
                     </RadioGroup>
                     {errors.method && (
@@ -175,7 +161,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ goalAmount = 10000, onSubmi
                 
                 <DialogFooter>
                   <Button type="submit" disabled={isPending}>
-                    {isPending ? "Processing..." : "Complete Donation"}
+                    {isPending ? "Processing..." : "Complete"}
                   </Button>
                 </DialogFooter>
               </form>

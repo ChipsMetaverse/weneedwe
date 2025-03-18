@@ -1,7 +1,5 @@
-
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useState } from "react";
+import { blogPosts as mockBlogPosts } from "@/components/mock-data";
 
 export interface BlogPost {
   id: string;
@@ -18,66 +16,58 @@ export interface BlogPostInput {
 }
 
 export const useBlog = () => {
-  const queryClient = useQueryClient();
+  const [posts, setPosts] = useState<BlogPost[]>(mockBlogPosts);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [isPending, setIsPending] = useState(false);
 
   const fetchBlogPosts = async (): Promise<BlogPost[]> => {
-    const { data, error } = await supabase
-      .from('blog')
-      .select('*')
-      .order('published_at', { ascending: false });
-
-    if (error) {
-      console.error("Error fetching blog posts:", error);
-      toast.error("Failed to load blog posts");
-      throw error;
-    }
-
-    return data || [];
+    // Return mock data instead of fetching from Supabase
+    return mockBlogPosts;
   };
 
   const createBlogPost = async (post: BlogPostInput): Promise<BlogPost> => {
-    const { data, error } = await supabase
-      .from('blog')
-      .insert({
-        ...post,
+    setIsPending(true);
+    
+    try {
+      // Create a new blog post with mock data
+      const newPost: BlogPost = {
+        id: `blog-${Date.now()}`,
+        title: post.title,
+        content: post.content,
+        author: "Author Name",
         published_at: post.published_at || new Date().toISOString(),
-      })
-      .select()
-      .single();
-
-    if (error) {
-      console.error("Error creating blog post:", error);
-      toast.error("Failed to create blog post");
+      };
+      
+      // Add to local state
+      setPosts(prev => [newPost, ...prev]);
+      
+      return newPost;
+    } catch (err) {
+      const error = err as Error;
+      setError(error);
       throw error;
+    } finally {
+      setIsPending(false);
     }
-
-    toast.success("Blog post created successfully!");
-    return data;
   };
 
-  const blogQuery = useQuery({
-    queryKey: ['blog'],
-    queryFn: fetchBlogPosts,
-  });
-
-  const createBlogPostMutation = useMutation({
-    mutationFn: createBlogPost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['blog'] });
-    },
-  });
-
   const getRecentPosts = (limit?: number) => {
-    const posts = blogQuery.data || [];
-    return limit ? posts.slice(0, limit) : posts;
+    // Sort by published date, descending
+    const sorted = [...posts].sort((a, b) => {
+      if (!a.published_at || !b.published_at) return 0;
+      return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
+    });
+    
+    return limit ? sorted.slice(0, limit) : sorted;
   };
 
   return {
-    posts: blogQuery.data || [],
+    posts,
     getRecentPosts,
-    isLoading: blogQuery.isLoading,
-    error: blogQuery.error,
-    createBlogPost: createBlogPostMutation.mutate,
-    isPending: createBlogPostMutation.isPending,
+    isLoading,
+    error,
+    createBlogPost,
+    isPending,
   };
 };

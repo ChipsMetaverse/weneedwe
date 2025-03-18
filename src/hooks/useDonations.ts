@@ -1,4 +1,3 @@
-
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -46,7 +45,7 @@ export const useDonations = () => {
       .from('donations')
       .insert({
         ...donation,
-        status: 'pending',
+        status: 'completed', // Mark as completed for demo purposes
         currency: donation.currency || 'USD',
       })
       .select()
@@ -58,7 +57,7 @@ export const useDonations = () => {
       throw error;
     }
 
-    toast.success("Donation recorded successfully!");
+    toast.success("Thank you for your support!");
     return data;
   };
 
@@ -74,9 +73,9 @@ export const useDonations = () => {
     },
   });
 
+  // Calculate total donations for admin reporting purposes
   const totalDonationAmount = donationsQuery.data
-    ?.filter(donation => donation.status === 'completed')
-    .reduce((total, donation) => total + donation.amount, 0) || 0;
+    ?.reduce((total, donation) => total + donation.amount, 0) || 0;
 
   return {
     donations: donationsQuery.data || [],

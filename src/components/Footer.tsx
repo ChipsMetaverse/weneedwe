@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Heart, Mail, Phone, MapPin, ChevronRight, Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
 
@@ -23,13 +22,13 @@ const Footer = () => {
     { name: 'Contact', url: '#contact' },
   ];
   
-  // Services links
+  // Services links - updated with weneedwe.org services
   const serviceLinks = [
-    { name: 'Community Support', url: '#community-support' },
+    { name: 'BW-SELF Advocacy', url: '#bw-self-advocacy' },
+    { name: 'HIV Support Services', url: '#hiv-support' },
+    { name: 'Youth Empowerment', url: '#youth-empowerment' },
+    { name: 'Health Education', url: '#health-education' },
     { name: 'Education Programs', url: '#education-programs' },
-    { name: 'Housing Assistance', url: '#housing-assistance' },
-    { name: 'Healthcare Access', url: '#healthcare-access' },
-    { name: 'Food Security', url: '#food-security' },
   ];
   
   // Get involved links
@@ -55,10 +54,10 @@ const Footer = () => {
               <span className="text-primary mr-1">
                 <Heart className="h-5 w-5 inline-block" />
               </span>
-              WeneedWe
+              WeNeedWe
             </a>
             <p className="text-muted-foreground mb-6 text-balance">
-              Empowering underserved communities through comprehensive support services, education programs, and community development initiatives.
+              WeNeedWe is dedicated to empowering individuals and families through comprehensive support services, education, and advocacy. We strive to create a community where everyone has the resources and opportunities they need to thrive.
             </p>
             
             <div className="space-y-3 mb-6">
@@ -211,7 +210,7 @@ const Footer = () => {
         {/* Footer bottom */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground text-center md:text-left mb-4 md:mb-0">
-            © {currentYear} WeneedWe. A 501(c)(3) nonprofit organization. All rights reserved.
+            © {currentYear} WeNeedWe. A 501(c)(3) nonprofit organization. All rights reserved.
           </p>
           
           <div className="flex flex-wrap justify-center gap-6">

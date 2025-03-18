@@ -53,6 +53,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
+          <NavItem href="/about-us" label="About Us" />
           <NavItem href="#features" label="Services" />
           
           <div className="relative group">
@@ -99,7 +100,7 @@ const Navbar = () => {
           </Button>
           
           <Button className="shadow-lg relative overflow-hidden group">
-            <span className="relative z-10">Donate</span>
+            <span className="relative z-10">Support Us</span>
             <span className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%] animate-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
           </Button>
           
@@ -112,6 +113,7 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent className="w-[80vw] max-w-md">
               <div className="flex flex-col gap-6 mt-8">
+                <MobileNavItem href="/about-us" label="About Us" onClick={() => setIsMenuOpen(false)} />
                 <MobileNavItem href="#features" label="Services" onClick={() => setIsMenuOpen(false)} />
                 <MobileNavItem href="#events" label="Events" onClick={() => setIsMenuOpen(false)} />
                 <MobileNavItem href="#gallery" label="Gallery" onClick={() => setIsMenuOpen(false)} />
@@ -124,7 +126,7 @@ const Navbar = () => {
                     Volunteer
                   </Button>
                   <Button className="w-full justify-start">
-                    Donate Now
+                    Support Our Work
                   </Button>
                 </div>
               </div>

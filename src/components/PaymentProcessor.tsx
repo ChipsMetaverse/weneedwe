@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePayment } from '@/hooks/usePayment';
 import { useDonations, DonationInput } from '@/hooks/useDonations';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CreditCard, AlertCircle } from "lucide-react";
+import { CreditCard, AlertCircle, Smartphone } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface PaymentProcessorProps {
@@ -19,34 +18,16 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({
   onSuccess,
   onCancel
 }) => {
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal'>('card');
+  const [paymentMethod, setPaymentMethod] = useState<string>('credit_card');
   const { createStripePayment, createPayPalOrder, isStripeProcessing, isPayPalProcessing, stripeError, paypalError } = usePayment();
   const { createDonation } = useDonations();
 
   const handlePayment = async () => {
     try {
-      if (paymentMethod === 'card') {
-        createStripePayment({
-          ...donationDetails,
-          method: 'credit_card'
-        }, {
-          onSuccess: async () => {
-            // In a real implementation, we would process the payment with Stripe.js
-            // For demo purposes, we'll just record the donation as successful
-            await processDonation('credit_card');
-            onSuccess();
-          }
-        });
-      } else {
-        createPayPalOrder(donationDetails, {
-          onSuccess: async () => {
-            // In a real implementation, we would redirect to PayPal
-            // For demo purposes, we'll just record the donation as successful
-            await processDonation('paypal');
-            onSuccess();
-          }
-        });
-      }
+      // In a real implementation, we would use different payment processors
+      // For demo purposes, we'll just record the donation as successful with the selected method
+      await processDonation(paymentMethod);
+      onSuccess();
     } catch (error) {
       console.error("Payment processing error:", error);
     }
@@ -63,7 +44,28 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({
     }
   };
 
-  const error = paymentMethod === 'card' ? stripeError : paypalError;
+  // For demo, we'll just use the same error state for all payment methods
+  const error = stripeError || paypalError;
+
+  const getPaymentMethodIcon = (method: string) => {
+    switch (method) {
+      case 'credit_card':
+        return <CreditCard className="h-5 w-5" />;
+      case 'apple_pay':
+      case 'google_pay':
+        return <Smartphone className="h-5 w-5" />;
+      case 'paypal':
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 11l5-5 5 5M7 17l5-5 5 5"></path>
+          </svg>
+        );
+      case 'zelle':
+      case 'cash_app':
+      default:
+        return <CreditCard className="h-5 w-5" />;
+    }
+  };
 
   return (
     <Card className="w-full max-w-md mx-auto">
@@ -74,30 +76,65 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="card" onValueChange={(value) => setPaymentMethod(value as 'card' | 'paypal')}>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="card">Credit Card</TabsTrigger>
-            <TabsTrigger value="paypal">PayPal</TabsTrigger>
-          </TabsList>
-          <TabsContent value="card" className="space-y-4 mt-4">
-            <div className="flex items-center space-x-2 p-4 border rounded-md bg-muted/50">
-              <CreditCard className="h-5 w-5 text-muted-foreground" />
-              <div className="text-sm">
-                Credit card payment processing available in production
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="paypal" className="space-y-4 mt-4">
-            <div className="flex items-center space-x-2 p-4 border rounded-md bg-muted/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
-                <path d="M7 11l5-5 5 5M7 17l5-5 5 5"></path>
-              </svg>
-              <div className="text-sm">
-                PayPal payment processing available in production
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          <Button 
+            variant={paymentMethod === 'credit_card' ? 'default' : 'outline'} 
+            onClick={() => setPaymentMethod('credit_card')}
+            className="flex flex-col gap-1 h-auto py-2"
+          >
+            <CreditCard className="h-5 w-5" />
+            <span className="text-xs">Credit Card</span>
+          </Button>
+          <Button 
+            variant={paymentMethod === 'paypal' ? 'default' : 'outline'} 
+            onClick={() => setPaymentMethod('paypal')}
+            className="flex flex-col gap-1 h-auto py-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M7 11l5-5 5 5M7 17l5-5 5 5"></path>
+            </svg>
+            <span className="text-xs">PayPal</span>
+          </Button>
+          <Button 
+            variant={paymentMethod === 'apple_pay' ? 'default' : 'outline'} 
+            onClick={() => setPaymentMethod('apple_pay')}
+            className="flex flex-col gap-1 h-auto py-2"
+          >
+            <Smartphone className="h-5 w-5" />
+            <span className="text-xs">Apple Pay</span>
+          </Button>
+          <Button 
+            variant={paymentMethod === 'google_pay' ? 'default' : 'outline'} 
+            onClick={() => setPaymentMethod('google_pay')}
+            className="flex flex-col gap-1 h-auto py-2"
+          >
+            <Smartphone className="h-5 w-5" />
+            <span className="text-xs">Google Pay</span>
+          </Button>
+          <Button 
+            variant={paymentMethod === 'zelle' ? 'default' : 'outline'} 
+            onClick={() => setPaymentMethod('zelle')}
+            className="flex flex-col gap-1 h-auto py-2"
+          >
+            <CreditCard className="h-5 w-5" />
+            <span className="text-xs">Zelle</span>
+          </Button>
+          <Button 
+            variant={paymentMethod === 'cash_app' ? 'default' : 'outline'} 
+            onClick={() => setPaymentMethod('cash_app')}
+            className="flex flex-col gap-1 h-auto py-2"
+          >
+            <CreditCard className="h-5 w-5" />
+            <span className="text-xs">Cash App</span>
+          </Button>
+        </div>
+
+        <div className="flex items-center space-x-2 p-4 border rounded-md bg-muted/50">
+          {getPaymentMethodIcon(paymentMethod)}
+          <div className="text-sm">
+            {paymentMethod.replace('_', ' ')} payment processing available in production
+          </div>
+        </div>
 
         {error && (
           <Alert variant="destructive" className="mt-4">
@@ -117,7 +154,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({
           onClick={handlePayment}
           disabled={isStripeProcessing || isPayPalProcessing}
         >
-          {isStripeProcessing || isPayPalProcessing ? "Processing..." : "Complete Donation"}
+          {isStripeProcessing || isPayPalProcessing ? "Processing..." : "Complete Payment"}
         </Button>
       </CardFooter>
     </Card>
