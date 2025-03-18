@@ -1,14 +1,34 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useIntersectionObserver } from '@/utils/animations';
 import DonationForm from './DonationForm';
+import PaymentProcessor from './PaymentProcessor';
+import { DonationInput } from '@/hooks/useDonations';
+import { toast } from 'sonner';
 
 const Hero = () => {
   const { ref, isVisible: inView } = useIntersectionObserver({
     threshold: 0.2,
     triggerOnce: true
   });
+  
+  const [showPaymentProcessor, setShowPaymentProcessor] = useState(false);
+  const [donationDetails, setDonationDetails] = useState<DonationInput | null>(null);
+
+  const handleDonationSubmit = (data: DonationInput) => {
+    setDonationDetails(data);
+    setShowPaymentProcessor(true);
+  };
+
+  const handlePaymentSuccess = () => {
+    setShowPaymentProcessor(false);
+    toast.success("Thank you for your donation!");
+  };
+
+  const handlePaymentCancel = () => {
+    setShowPaymentProcessor(false);
+  };
 
   return (
     <section 
@@ -42,7 +62,15 @@ const Hero = () => {
           <div className={`transition-all duration-1000 delay-300 ${
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
           }`}>
-            <DonationForm />
+            {showPaymentProcessor && donationDetails ? (
+              <PaymentProcessor 
+                donationDetails={donationDetails}
+                onSuccess={handlePaymentSuccess}
+                onCancel={handlePaymentCancel}
+              />
+            ) : (
+              <DonationForm onSubmit={handleDonationSubmit} />
+            )}
           </div>
         </div>
       </div>
