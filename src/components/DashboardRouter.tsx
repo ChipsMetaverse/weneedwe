@@ -9,27 +9,12 @@ const DashboardRouter = () => {
   const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
   
-  // Don't render anything if user is not loaded yet
-  if (loading) {
-    return null;
-  }
-  
-  // Don't render the admin button if user is not logged in or not an admin
-  if (!user || !profile || !profile.is_admin) {
+  // Don't render anything if user is not loaded yet or user is not admin
+  if (loading || !user || !profile || !profile.is_admin) {
     return null;
   }
 
   const handleAdminAccess = () => {
-    if (!user) {
-      toast.error("Please sign in to access the admin dashboard");
-      return;
-    }
-    
-    if (!profile.is_admin) {
-      toast.error("You do not have admin privileges");
-      return;
-    }
-    
     navigate('/admin');
   };
 

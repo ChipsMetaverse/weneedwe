@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import EventsList from '@/components/EventsList';
 import BlogPosts from '@/components/BlogPosts';
 import MediaGallery from '@/components/MediaGallery';
+import DashboardRouter from '@/components/DashboardRouter';
 
 const Index = () => {
   // Smooth scroll behavior for anchor links
@@ -39,9 +40,9 @@ const Index = () => {
   }, []);
   
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <main>
+      <main className="flex-grow">
         <Hero />
         <Features />
         
@@ -68,6 +69,7 @@ const Index = () => {
         <ContactForm />
       </main>
       <Footer />
+      <DashboardRouter />
     </div>
   );
 };
