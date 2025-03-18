@@ -80,24 +80,39 @@ const FeatureCard = ({ title, description, icon: Icon, delay, color }: {
 }) => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
+  // Extract color values for gradient
+  const colorClass = color.split(' ')[0]; // e.g. "bg-red-100"
+  const textColorClass = color.split(' ')[1]; // e.g. "text-red-600"
+  
+  // Get the base color (red, blue, etc.)
+  const baseColor = colorClass.split('-')[1]; // e.g. "red"
+  
   return (
     <div 
       ref={ref as React.RefObject<HTMLDivElement>}
       className={cn(
-        "bg-white rounded-2xl p-8 shadow-sm border border-border transition-all",
-        "hover:shadow-md hover:border-primary/30 hover:translate-y-[-4px]",
+        "gradient-card group tilt-card p-8 transition-all duration-500",
         isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'
       )}
-      style={{ animationDelay: `${0.2 + delay}s` }}
+      style={{ 
+        animationDelay: `${0.2 + delay}s`,
+        background: `linear-gradient(135deg, var(--${baseColor}-50) 0%, var(--${baseColor}-100) 100%)`,
+      }}
     >
-      <div className={cn(
-        "w-12 h-12 rounded-xl flex items-center justify-center mb-6",
-        color
-      )}>
-        <Icon className="w-6 h-6" />
+      <div className="tilt-content">
+        <div className={cn(
+          "w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110",
+          `bg-${baseColor}-100`,
+          textColorClass,
+          "shadow-md shadow-" + baseColor + "-200/50"
+        )}>
+          <Icon className="w-8 h-8" />
+        </div>
+        <h3 className={`text-xl font-bold mb-4 ${textColorClass}`}>{title}</h3>
+        <p className="text-foreground/80 leading-relaxed">{description}</p>
+        
+        <div className={`mt-6 w-10 h-1 ${textColorClass.replace('text', 'bg')} rounded-full opacity-60 transition-all duration-300 group-hover:w-16`}></div>
       </div>
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
     </div>
   );
 };
@@ -117,14 +132,17 @@ const StatItem = ({ label, value, prefix }: { label: string; value: string; pref
     <div 
       ref={ref as React.RefObject<HTMLDivElement>}
       className={cn(
-        "text-center",
+        "text-center group",
         isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'
       )}
     >
-      <div className="text-4xl font-bold text-primary mb-2">
+      <div className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent inline-block mb-3 
+                    transition-all duration-300 group-hover:scale-110 group-hover:translate-y-[-4px]">
         {prefix}{value}
       </div>
-      <div className="text-muted-foreground">{label}</div>
+      <div className="text-foreground/80 font-medium text-lg">{label}</div>
+      <div className="mt-3 w-12 h-1 bg-gradient-to-r from-primary to-secondary rounded-full opacity-60 mx-auto
+                   transition-all duration-300 group-hover:w-24 group-hover:opacity-100"></div>
     </div>
   );
 };
@@ -133,29 +151,40 @@ const Features = () => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
   return (
-    <section id="about" className="py-24 bg-secondary/50">
-      <div className="container mx-auto px-6">
+    <section id="features" className="py-28 bg-pattern relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute -top-48 -left-48 w-96 h-96 rounded-full bg-primary/5 blur-3xl"></div>
+      <div className="absolute -bottom-48 -right-48 w-96 h-96 rounded-full bg-secondary/5 blur-3xl"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <div 
           ref={ref as React.RefObject<HTMLDivElement>}
           className={cn(
-            "text-center max-w-2xl mx-auto mb-16",
+            "text-center max-w-3xl mx-auto mb-20",
             isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'
           )}
         >
-          <span className="inline-block px-4 py-1.5 mb-6 text-xs font-medium rounded-full bg-white text-primary">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+            <span className="relative flex h-2 w-2 mr-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
             Our Services
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary/90 to-secondary/90 bg-clip-text text-transparent">
             Supporting Our Community
           </h2>
-          <p className="text-muted-foreground text-lg text-balance">
-            We offer a comprehensive range of services designed to meet the diverse needs of our community members, with a focus on dignity, respect, and empowerment.
+          
+          <p className="text-foreground/80 text-lg text-balance leading-relaxed">
+            We offer a comprehensive range of services designed to meet the diverse needs of our community members, 
+            with a focus on <span className="font-semibold text-foreground">dignity, respect, and empowerment</span>.
           </p>
         </div>
         
         {/* Statistics section */}
-        <div className="bg-white rounded-2xl shadow-sm border border-border p-10 mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="glass p-12 mb-20 rounded-3xl shadow-xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {stats.map((stat, index) => (
               <StatItem
                 key={index}
@@ -168,7 +197,7 @@ const Features = () => {
         </div>
         
         {/* Features grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-animation">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}
@@ -178,15 +207,16 @@ const Features = () => {
         </div>
         
         {/* Call to action */}
-        <div className="mt-16 text-center">
-          <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto text-balance">
-            Want to learn more about our services or how you can get involved?
+        <div className="mt-24 text-center max-w-3xl mx-auto glass p-10 rounded-3xl shadow-lg">
+          <h3 className="text-2xl font-bold mb-4">Ready to make a difference?</h3>
+          <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto text-balance">
+            Join our community of volunteers and supporters to create positive change in the lives of those who need it most.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#contact" className="button-primary min-w-[160px]">
+          <div className="flex flex-wrap justify-center gap-5">
+            <a href="#contact" className="button-primary min-w-[180px] py-4 text-base">
               Contact Us
             </a>
-            <a href="#" className="button-secondary min-w-[160px]">
+            <a href="#" className="button-secondary min-w-[180px] py-4 text-base">
               Volunteer
             </a>
           </div>
