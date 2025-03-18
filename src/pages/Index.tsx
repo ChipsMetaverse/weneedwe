@@ -6,6 +6,9 @@ import Features from '@/components/Features';
 import Gallery from '@/components/Gallery';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
+import EventsList from '@/components/EventsList';
+import BlogPosts from '@/components/BlogPosts';
+import MediaGallery from '@/components/MediaGallery';
 
 const Index = () => {
   // Smooth scroll behavior for anchor links
@@ -41,6 +44,26 @@ const Index = () => {
       <main>
         <Hero />
         <Features />
+        
+        <section className="py-16 bg-muted/50" id="events">
+          <div className="container px-4 md:px-6">
+            <EventsList />
+          </div>
+        </section>
+        
+        <section className="py-16" id="media">
+          <div className="container px-4 md:px-6">
+            <h2 className="text-3xl font-bold mb-10 text-center">Our Gallery</h2>
+            <MediaGallery />
+          </div>
+        </section>
+        
+        <section className="py-16 bg-muted/50" id="blog">
+          <div className="container px-4 md:px-6">
+            <BlogPosts />
+          </div>
+        </section>
+        
         <Gallery />
         <ContactForm />
       </main>
