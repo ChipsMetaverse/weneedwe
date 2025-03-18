@@ -32,6 +32,87 @@ const Navbar = () => {
     }
   };
 
+  // Function to render auth-specific buttons
+  const renderAuthButtons = () => {
+    if (loading) {
+      return null; // Don't show anything while loading
+    }
+    
+    if (user) {
+      return (
+        <>
+          <Link to="/admin">
+            <Button variant="outline" size="sm" className="hidden sm:flex items-center gap-1">
+              Dashboard
+            </Button>
+          </Link>
+          <Button variant="outline" size="sm" onClick={signOut}>
+            Sign Out
+          </Button>
+        </>
+      );
+    }
+    
+    return (
+      <>
+        <Button 
+          variant="outline" 
+          size="sm"
+          className="hidden sm:flex items-center gap-1"
+        >
+          <Heart className="h-4 w-4 text-primary" />
+          Volunteer
+        </Button>
+        
+        <Link to="/auth">
+          <Button className="shadow-lg relative overflow-hidden group">
+            <span className="relative z-10">Support Us</span>
+            <span className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%] animate-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+          </Button>
+        </Link>
+      </>
+    );
+  };
+
+  // Function to render mobile auth buttons
+  const renderMobileAuthButtons = () => {
+    if (loading) {
+      return null; // Don't show anything while loading
+    }
+    
+    if (user) {
+      return (
+        <>
+          <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
+            <Button variant="outline" className="w-full justify-start">
+              Dashboard
+            </Button>
+          </Link>
+          <Button variant="default" className="w-full justify-start" onClick={() => {
+            signOut();
+            setIsMenuOpen(false);
+          }}>
+            Sign Out
+          </Button>
+        </>
+      );
+    }
+    
+    return (
+      <>
+        <Button variant="outline" className="w-full justify-start">
+          <Heart className="h-4 w-4 mr-2" />
+          Volunteer
+        </Button>
+        <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+          <Button className="w-full justify-start">
+            Support Our Work
+          </Button>
+        </Link>
+      </>
+    );
+  };
+
   return (
     <header 
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
@@ -93,38 +174,7 @@ const Navbar = () => {
 
         {/* Call to Action Buttons */}
         <div className="flex items-center gap-3">
-          {!loading && (
-            user ? (
-              <>
-                <Link to="/admin">
-                  <Button variant="outline" size="sm" className="hidden sm:flex items-center gap-1">
-                    Dashboard
-                  </Button>
-                </Link>
-                <Button variant="outline" size="sm" onClick={signOut}>
-                  Sign Out
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="hidden sm:flex items-center gap-1"
-                >
-                  <Heart className="h-4 w-4 text-primary" />
-                  Volunteer
-                </Button>
-                
-                <Link to="/auth">
-                  <Button className="shadow-lg relative overflow-hidden group">
-                    <span className="relative z-10">Support Us</span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%] animate-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-                  </Button>
-                </Link>
-              </>
-            )
-          )}
+          {renderAuthButtons()}
           
           {/* Mobile Menu Button */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -143,32 +193,7 @@ const Navbar = () => {
                 <MobileNavItem href="#contact" label="Contact" onClick={() => setIsMenuOpen(false)} />
                 
                 <div className="border-t pt-6 flex flex-col gap-3">
-                  {!loading && (
-                    user ? (
-                      <>
-                        <Link to="/admin">
-                          <Button variant="outline" className="w-full justify-start">
-                            Dashboard
-                          </Button>
-                        </Link>
-                        <Button variant="default" className="w-full justify-start" onClick={signOut}>
-                          Sign Out
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        <Button variant="outline" className="w-full justify-start">
-                          <Heart className="h-4 w-4 mr-2" />
-                          Volunteer
-                        </Button>
-                        <Link to="/auth">
-                          <Button className="w-full justify-start">
-                            Support Our Work
-                          </Button>
-                        </Link>
-                      </>
-                    )
-                  )}
+                  {renderMobileAuthButtons()}
                 </div>
               </div>
             </SheetContent>

@@ -63,11 +63,11 @@ const Hero = () => {
               </p>
             </div>
             
-            <div className="flex justify-center sm:flex-row gap-4 mt-2">
-              <Button size="lg" className="button-primary sm:w-auto text-base">
+            <div className="flex flex-col sm:flex-row gap-4 mt-2">
+              <Button size="lg" className="button-primary w-full sm:w-auto text-base">
                 Get Involved
               </Button>
-              <Button size="lg" className="button-outline sm:w-auto text-base">
+              <Button size="lg" className="button-outline w-full sm:w-auto text-base">
                 Learn More
               </Button>
             </div>

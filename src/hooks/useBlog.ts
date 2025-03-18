@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { blogPosts as mockBlogPosts } from "@/components/mock-data";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export interface BlogPost {
   id: string;
@@ -16,33 +17,65 @@ export interface BlogPostInput {
 }
 
 export const useBlog = () => {
-  const [posts, setPosts] = useState<BlogPost[]>(mockBlogPosts);
-  const [isLoading, setIsLoading] = useState(false);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [isPending, setIsPending] = useState(false);
 
+  useEffect(() => {
+    fetchBlogPosts()
+      .then(data => setPosts(data))
+      .catch(err => setError(err as Error))
+      .finally(() => setIsLoading(false));
+  }, []);
+
   const fetchBlogPosts = async (): Promise<BlogPost[]> => {
-    // Return mock data instead of fetching from Supabase
-    return mockBlogPosts;
+    try {
+      const { data, error } = await supabase
+        .from('blog')
+        .select('*')
+        .order('published_at', { ascending: false });
+
+      if (error) {
+        console.error("Error fetching blog posts:", error);
+        toast.error("Failed to load blog posts");
+        throw error;
+      }
+
+      return data || [];
+    } catch (err) {
+      console.error("Error in fetchBlogPosts:", err);
+      return [];
+    }
   };
 
   const createBlogPost = async (post: BlogPostInput): Promise<BlogPost> => {
     setIsPending(true);
     
     try {
-      // Create a new blog post with mock data
-      const newPost: BlogPost = {
-        id: `blog-${Date.now()}`,
-        title: post.title,
-        content: post.content,
-        author: "Author Name",
-        published_at: post.published_at || new Date().toISOString(),
-      };
+      const { data, error } = await supabase
+        .from('blog')
+        .insert({
+          title: post.title,
+          content: post.content,
+          author: "User",
+          published_at: post.published_at || new Date().toISOString(),
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error("Error creating blog post:", error);
+        toast.error("Failed to create blog post");
+        throw error;
+      }
+
+      toast.success("Blog post created successfully!");
       
       // Add to local state
-      setPosts(prev => [newPost, ...prev]);
+      setPosts(prev => [data, ...prev]);
       
-      return newPost;
+      return data;
     } catch (err) {
       const error = err as Error;
       setError(error);
