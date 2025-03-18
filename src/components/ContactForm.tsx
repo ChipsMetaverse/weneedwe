@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useIntersectionObserver } from '@/utils/animations';
 import { cn } from '@/lib/utils';
@@ -12,7 +11,7 @@ const ContactForm = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

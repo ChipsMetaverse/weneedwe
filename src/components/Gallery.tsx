@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { useIntersectionObserver, useImageLoading } from '@/utils/animations';
 import { cn } from '@/lib/utils';
@@ -59,7 +58,7 @@ const GalleryItem = ({
   onClick: () => void,
   delay: number
 }) => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   const imageLoading = useImageLoading();
   
   return (
@@ -183,7 +182,7 @@ const LightboxModal = ({
 const Gallery = () => {
   const [selectedItem, setSelectedItem] = useState<typeof galleryItems[0] | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
   const handleItemClick = (item: typeof galleryItems[0], index: number) => {
     setSelectedItem(item);

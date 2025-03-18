@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useIntersectionObserver } from '@/utils/animations';
 import { cn } from '@/lib/utils';
@@ -42,7 +41,7 @@ const FeatureCard = ({ title, description, icon: Icon, delay }: {
   icon: React.ElementType;
   delay: number;
 }) => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
   return (
     <div 
@@ -64,7 +63,7 @@ const FeatureCard = ({ title, description, icon: Icon, delay }: {
 };
 
 const Features = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
   return (
     <section id="about" className="py-24 bg-secondary/50">
