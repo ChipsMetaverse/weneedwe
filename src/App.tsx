@@ -1,4 +1,5 @@
-import React from 'react'
+
+import React, { Suspense } from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom'
 import { Toaster } from '@/components/ui/sonner'
@@ -9,6 +10,13 @@ import DashboardRouter from './components/DashboardRouter'
 import { AuthProvider } from './context/AuthContext'
 import Auth from './pages/Auth'
 import AboutUs from './pages/AboutUs'
+
+// Loading component for Suspense fallback
+const Loading = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+  </div>
+);
 
 // Wrapper component that provides auth context and other global components
 const AppLayout = () => {
@@ -33,15 +41,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Index />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Index />
+          </Suspense>
+        ),
       },
       {
         path: '/about-us',
-        element: <AboutUs />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <AboutUs />
+          </Suspense>
+        ),
       },
       {
         path: '/auth',
-        element: <Auth />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Auth />
+          </Suspense>
+        ),
       },
       {
         path: '*',
