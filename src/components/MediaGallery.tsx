@@ -24,7 +24,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
   const { media, getMediaByCategory, isLoading } = useMedia();
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+  const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1, triggerOnce: true });
 
   const filteredMedia = activeCategory === 'All'
     ? media.slice(0, limit)

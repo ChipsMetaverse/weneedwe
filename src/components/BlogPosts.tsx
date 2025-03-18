@@ -19,7 +19,7 @@ const BlogPosts: React.FC<BlogPostsProps> = ({
 }) => {
   const { getRecentPosts, isLoading, error } = useBlog();
   const posts = getRecentPosts(limit);
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+  const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1, triggerOnce: true });
   
   if (isLoading) {
     return (

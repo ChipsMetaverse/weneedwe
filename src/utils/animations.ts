@@ -1,13 +1,13 @@
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, RefObject } from 'react';
 
 // Intersection Observer hook for scroll-based animations
-export const useIntersectionObserver = (
+export const useIntersectionObserver = <T extends HTMLElement>(
   options = { threshold: 0.1, triggerOnce: true }
-) => {
+): { ref: RefObject<T>; isVisible: boolean } => {
   const [isVisible, setIsVisible] = useState(false);
   const [wasTriggered, setWasTriggered] = useState(false);
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<T>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
