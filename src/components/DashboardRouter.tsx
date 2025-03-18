@@ -3,7 +3,6 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
 
 const DashboardRouter = () => {
   const { user, profile, loading } = useAuth();

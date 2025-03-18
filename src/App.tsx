@@ -1,7 +1,7 @@
 
 import React from 'react'
 import './App.css'
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
 import { Toaster } from '@/components/ui/sonner'
 import Index from './pages/Index'
 import NotFound from './pages/NotFound'
@@ -29,38 +29,31 @@ const ProtectedAdminRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 // Router configuration
-const Router = () => {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Index />,
-      errorElement: <NotFound />
-    },
-    {
-      path: '/auth',
-      element: <Auth />
-    },
-    {
-      path: '/admin',
-      element: (
+const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/admin" element={
         <ProtectedAdminRoute>
           <AdminDashboard />
         </ProtectedAdminRoute>
-      )
-    }
-  ]);
-
-  return <RouterProvider router={router} />;
+      } />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 };
 
 function App() {
   return (
-    <AuthProvider>
-      <DataInitializer />
-      <Router />
-      <SupportChat />
-      <Toaster position="top-right" />
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <DataInitializer />
+        <AppRoutes />
+        <SupportChat />
+        <Toaster position="top-right" />
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 
