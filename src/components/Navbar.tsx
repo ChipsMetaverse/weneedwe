@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X, Heart, ChevronDown, ChevronRight } from 'lucide-react';
+import { Menu, Heart, ChevronDown, ChevronRight } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { user, loading, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +42,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <div className="relative">
             <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl">
               W
@@ -49,7 +52,7 @@ const Navbar = () => {
           <span className="font-display font-bold text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             WeneedWe
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
@@ -90,19 +93,38 @@ const Navbar = () => {
 
         {/* Call to Action Buttons */}
         <div className="flex items-center gap-3">
-          <Button 
-            variant="outline" 
-            size="sm"
-            className="hidden sm:flex items-center gap-1"
-          >
-            <Heart className="h-4 w-4 text-primary" />
-            Volunteer
-          </Button>
-          
-          <Button className="shadow-lg relative overflow-hidden group">
-            <span className="relative z-10">Support Us</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%] animate-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-          </Button>
+          {!loading && (
+            user ? (
+              <>
+                <Link to="/admin">
+                  <Button variant="outline" size="sm" className="hidden sm:flex items-center gap-1">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Button variant="outline" size="sm" onClick={signOut}>
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="hidden sm:flex items-center gap-1"
+                >
+                  <Heart className="h-4 w-4 text-primary" />
+                  Volunteer
+                </Button>
+                
+                <Link to="/auth">
+                  <Button className="shadow-lg relative overflow-hidden group">
+                    <span className="relative z-10">Support Us</span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%] animate-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                  </Button>
+                </Link>
+              </>
+            )
+          )}
           
           {/* Mobile Menu Button */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -121,13 +143,32 @@ const Navbar = () => {
                 <MobileNavItem href="#contact" label="Contact" onClick={() => setIsMenuOpen(false)} />
                 
                 <div className="border-t pt-6 flex flex-col gap-3">
-                  <Button variant="outline" className="w-full justify-start">
-                    <Heart className="h-4 w-4 mr-2" />
-                    Volunteer
-                  </Button>
-                  <Button className="w-full justify-start">
-                    Support Our Work
-                  </Button>
+                  {!loading && (
+                    user ? (
+                      <>
+                        <Link to="/admin">
+                          <Button variant="outline" className="w-full justify-start">
+                            Dashboard
+                          </Button>
+                        </Link>
+                        <Button variant="default" className="w-full justify-start" onClick={signOut}>
+                          Sign Out
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button variant="outline" className="w-full justify-start">
+                          <Heart className="h-4 w-4 mr-2" />
+                          Volunteer
+                        </Button>
+                        <Link to="/auth">
+                          <Button className="w-full justify-start">
+                            Support Our Work
+                          </Button>
+                        </Link>
+                      </>
+                    )
+                  )}
                 </div>
               </div>
             </SheetContent>
