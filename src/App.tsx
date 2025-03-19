@@ -10,6 +10,7 @@ import DashboardRouter from './components/DashboardRouter'
 import { AuthProvider } from './context/AuthContext'
 import Auth from './pages/Auth'
 import AboutUs from './pages/AboutUs'
+import VolunteerPage from './pages/Volunteer'
 
 // Loading component for Suspense fallback
 const Loading = () => (
@@ -52,6 +53,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <AboutUs />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/volunteer',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <VolunteerPage />
           </Suspense>
         ),
       },

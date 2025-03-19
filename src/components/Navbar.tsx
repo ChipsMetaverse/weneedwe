@@ -32,7 +32,6 @@ const Navbar = () => {
     }
   };
 
-  // Function to render auth-specific buttons
   const renderAuthButtons = () => {
     if (loading) {
       return null; // Don't show anything while loading
@@ -55,14 +54,16 @@ const Navbar = () => {
     
     return (
       <>
-        <Button 
-          variant="outline" 
-          size="sm"
-          className="hidden sm:flex items-center gap-1"
-        >
-          <Heart className="h-4 w-4 text-primary" />
-          Volunteer
-        </Button>
+        <Link to="/volunteer">
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="hidden sm:flex items-center gap-1"
+          >
+            <Heart className="h-4 w-4 text-primary" />
+            Volunteer
+          </Button>
+        </Link>
         
         <Link to="/auth">
           <Button className="shadow-lg relative overflow-hidden group">
@@ -74,7 +75,6 @@ const Navbar = () => {
     );
   };
 
-  // Function to render mobile auth buttons
   const renderMobileAuthButtons = () => {
     if (loading) {
       return null; // Don't show anything while loading
@@ -100,10 +100,12 @@ const Navbar = () => {
     
     return (
       <>
-        <Button variant="outline" className="w-full justify-start">
-          <Heart className="h-4 w-4 mr-2" />
-          Volunteer
-        </Button>
+        <Link to="/volunteer" onClick={() => setIsMenuOpen(false)}>
+          <Button variant="outline" className="w-full justify-start">
+            <Heart className="h-4 w-4 mr-2" />
+            Volunteer
+          </Button>
+        </Link>
         <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
           <Button className="w-full justify-start">
             Support Our Work
@@ -122,7 +124,6 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <div className="relative">
             <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl">
@@ -135,7 +136,6 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
           <NavItem href="/about-us" label="About Us" />
           <NavItem href="#features" label="Services" />
@@ -172,11 +172,9 @@ const Navbar = () => {
           <NavItem href="#contact" label="Contact" />
         </nav>
 
-        {/* Call to Action Buttons */}
         <div className="flex items-center gap-3">
           {renderAuthButtons()}
           
-          {/* Mobile Menu Button */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" className="ml-2">
@@ -204,7 +202,6 @@ const Navbar = () => {
   );
 };
 
-// Desktop Navigation Item
 const NavItem = ({ href, label }: { href: string; label: string }) => (
   <a
     href={href}
@@ -214,7 +211,6 @@ const NavItem = ({ href, label }: { href: string; label: string }) => (
   </a>
 );
 
-// Mobile Navigation Item
 const MobileNavItem = ({ href, label, onClick }: { href: string; label: string; onClick: () => void }) => (
   <a
     href={href}
