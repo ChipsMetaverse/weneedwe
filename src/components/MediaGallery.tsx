@@ -4,7 +4,7 @@ import { useMedia } from '@/hooks/useMedia';
 import { Button } from '@/components/ui/button';
 import { useIntersectionObserver } from '@/utils/animations';
 import { cn } from '@/lib/utils';
-import { ImageIcon, RefreshCw } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
 import MediaGalleryTabs from './gallery/MediaGalleryTabs';
 import MediaGalleryGrid from './gallery/MediaGalleryGrid';
 import MediaGalleryModal from './gallery/MediaGalleryModal';
