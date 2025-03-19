@@ -7,7 +7,7 @@ import { GalleryItem as GalleryItemType } from './types';
 interface GalleryItemProps {
   item: GalleryItemType;
   onClick: () => void;
-  delay: number;
+  delay?: number;
 }
 
 const GalleryItem: React.FC<GalleryItemProps> = ({ 

@@ -6,41 +6,24 @@ import LightboxModal from './gallery/LightboxModal';
 import GalleryFilters from './gallery/GalleryFilters';
 import GalleryHeader from './gallery/GalleryHeader';
 import { GalleryItem as GalleryItemType } from './gallery/types';
-import { galleryItems, allCategories } from './gallery/GalleryData';
+import { galleryItems as defaultGalleryItems, allCategories } from './gallery/GalleryData';
+import { useGallery } from '@/hooks/useGallery';
 
 const Gallery = () => {
   const [selectedItem, setSelectedItem] = useState<GalleryItemType | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [items, setItems] = useState<GalleryItemType[]>(galleryItems);
+  const { galleryItems, isLoading, refetch } = useGallery();
   
   // Filter gallery items based on category and search query
-  const filteredItems = items.filter(item => {
+  const filteredItems = galleryItems.filter(item => {
     const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
     const matchesSearch = searchQuery === '' || 
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
       item.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
-  const fetchGalleryItems = async () => {
-    try {
-      setIsLoading(true);
-      // For this mock, we'll simulate a network delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setItems(galleryItems);
-    } catch (error) {
-      console.error('Error fetching gallery items:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchGalleryItems();
-  }, []);
   
   const handleItemClick = (item: GalleryItemType, index: number) => {
     setSelectedItem(item);
@@ -75,7 +58,7 @@ const Gallery = () => {
   };
 
   const handleRefresh = () => {
-    fetchGalleryItems();
+    refetch();
   };
 
   const renderGalleryContent = () => {
@@ -113,7 +96,6 @@ const Gallery = () => {
             <GalleryItem 
               key={item.id} 
               item={item}
-              delay={index}
               onClick={() => handleItemClick(item, index)}
             />
           ))}
