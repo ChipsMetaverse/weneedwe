@@ -23,7 +23,7 @@ const MediaGalleryGrid: React.FC<MediaGalleryGridProps> = ({
   onMediaClick,
   onCategoryChange
 }) => {
-  if (filteredMedia.length === 0) {
+  if (!filteredMedia || filteredMedia.length === 0) {
     return (
       <div className="text-center py-12 bg-muted/30 rounded-xl">
         <ImageIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
@@ -38,15 +38,20 @@ const MediaGalleryGrid: React.FC<MediaGalleryGridProps> = ({
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        {filteredMedia.map((item, index) => (
-          <MediaGalleryItem
-            key={item?.id || `media-${index}`}
-            item={item}
-            index={index}
-            isVisible={isVisible}
-            onClick={onMediaClick}
-          />
-        ))}
+        {filteredMedia.map((item, index) => {
+          // Only render if item has a valid URL
+          if (!item || !item.url) return null;
+          
+          return (
+            <MediaGalleryItem
+              key={item?.id || `media-${index}`}
+              item={item}
+              index={index}
+              isVisible={isVisible}
+              onClick={onMediaClick}
+            />
+          );
+        })}
       </div>
       
       {showViewAll && filteredMedia.length >= limit && (

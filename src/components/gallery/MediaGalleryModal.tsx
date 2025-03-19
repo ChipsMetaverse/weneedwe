@@ -32,15 +32,17 @@ const MediaGalleryModal: React.FC<MediaGalleryModalProps> = ({
           <X className="h-4 w-4" />
         </DialogClose>
         {selectedMedia && (
-          <img
-            src={selectedMedia}
-            alt="Selected media"
-            className="w-full h-auto max-h-[70vh] object-contain"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = '/placeholder.svg';
-            }}
-          />
+          <div className="w-full max-h-[70vh] flex items-center justify-center">
+            <img
+              src={selectedMedia}
+              alt={selectedItem?.metadata?.title || "Selected media"}
+              className="w-full h-auto max-h-[70vh] object-contain"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder.svg';
+              }}
+            />
+          </div>
         )}
         <div className="p-6">
           <DialogTitle className="text-xl">
