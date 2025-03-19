@@ -8,6 +8,7 @@ interface MediaItemProps {
   item: {
     id?: string;
     url?: string;
+    type?: string;
     metadata?: {
       title?: string;
       category?: string;
@@ -26,6 +27,10 @@ const MediaGalleryItem: React.FC<MediaItemProps> = ({
 }) => {
   if (!item || !item.url) return null;
   
+  // Use a valid placeholder image in case the main image fails to load
+  const placeholderImage = "/placeholder.svg";
+  const imageUrl = item.url && item.url !== "null" ? item.url : placeholderImage;
+  
   return (
     <div 
       className={cn(
@@ -36,18 +41,20 @@ const MediaGalleryItem: React.FC<MediaItemProps> = ({
     >
       <Card 
         className="overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg border border-border/40 hover:border-primary/20"
-        onClick={() => onClick(item.url || '')}
+        onClick={() => onClick(imageUrl)}
       >
         <CardContent className="p-0 relative overflow-hidden group">
           <AspectRatio ratio={3/4}>
+            <div className="w-full h-full bg-muted/50"></div>
             <img
-              src={item.url}
+              src={imageUrl}
               alt={item.metadata?.title || "Gallery image"}
-              className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+              className="absolute inset-0 object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
               onError={(e) => {
                 // Fallback for image loading errors
                 const target = e.target as HTMLImageElement;
-                target.src = '/placeholder.svg';
+                target.src = placeholderImage;
+                console.log("Image failed to load, using placeholder:", item.url);
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

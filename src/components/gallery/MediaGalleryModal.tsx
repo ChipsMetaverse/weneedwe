@@ -23,6 +23,7 @@ const MediaGalleryModal: React.FC<MediaGalleryModalProps> = ({
 }) => {
   if (!selectedMedia) return null;
   
+  // Find the selected item to display metadata
   const selectedItem = mediaItems?.find(item => item?.url === selectedMedia);
   
   return (
@@ -31,19 +32,22 @@ const MediaGalleryModal: React.FC<MediaGalleryModalProps> = ({
         <DialogClose className="absolute right-4 top-4 z-10 bg-background/80 rounded-full p-2 hover:bg-background">
           <X className="h-4 w-4" />
         </DialogClose>
-        {selectedMedia && (
-          <div className="w-full max-h-[70vh] flex items-center justify-center">
+        
+        <div className="w-full h-[70vh] bg-muted/20 flex items-center justify-center">
+          {selectedMedia && (
             <img
               src={selectedMedia}
               alt={selectedItem?.metadata?.title || "Selected media"}
-              className="w-full h-auto max-h-[70vh] object-contain"
+              className="w-full h-full object-contain"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = '/placeholder.svg';
+                console.log("Modal image failed to load:", selectedMedia);
               }}
             />
-          </div>
-        )}
+          )}
+        </div>
+        
         <div className="p-6">
           <DialogTitle className="text-xl">
             {selectedItem?.metadata?.title || "Media Item"}

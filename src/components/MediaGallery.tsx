@@ -26,48 +26,55 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
   const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1, triggerOnce: true });
 
-  // Create fallback images if no media or if there's an error
-  const fallbackMedia = activeCategory === 'All'
-    ? Array(limit).fill(null).map((_, i) => ({
-        id: `fallback-${i}`,
-        url: `https://source.unsplash.com/random/800x600?${activeCategory.toLowerCase()}&sig=${i}`,
-        type: 'image',
-        metadata: {
-          title: 'Community Image',
-          description: 'Community event or activity',
-          category: activeCategory
-        },
-        created_at: new Date().toISOString(),
-        uploaded_by: null
-      }))
-    : [];
+  // Create fallback images with working URLs if no media or if there's an error
+  const generateFallbackMedia = (category: string) => {
+    return Array(limit).fill(null).map((_, i) => ({
+      id: `fallback-${category}-${i}`,
+      url: `https://picsum.photos/seed/${category.toLowerCase()}-${i}/800/1200`,
+      type: 'image',
+      metadata: {
+        title: `${category} Image ${i+1}`,
+        description: `${category} event or activity`,
+        category: category
+      },
+      created_at: new Date().toISOString(),
+      uploaded_by: null
+    }));
+  };
+
+  const fallbackMedia = generateFallbackMedia(activeCategory);
+
+  // Log media data for debugging
+  useEffect(() => {
+    if (media) {
+      console.log("Media data available:", media.length > 0);
+      if (media.length > 0) {
+        console.log("Sample media item:", media[0]);
+      }
+    }
+  }, [media]);
 
   // Use actual media or fallback if empty
   const mediaToShow = media && media.length > 0 ? media : fallbackMedia;
   
   const filteredMedia = activeCategory === 'All'
     ? mediaToShow.slice(0, limit)
-    : (getMediaByCategory(activeCategory).length > 0 
-        ? getMediaByCategory(activeCategory).slice(0, limit) 
-        : fallbackMedia.slice(0, limit));
+    : (() => {
+        const categoryMedia = getMediaByCategory(activeCategory);
+        return categoryMedia.length > 0 
+          ? categoryMedia.slice(0, limit) 
+          : generateFallbackMedia(activeCategory).slice(0, limit);
+      })();
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
   };
 
   const handleMediaClick = (mediaUrl: string) => {
-    setSelectedMedia(mediaUrl);
+    if (mediaUrl) {
+      setSelectedMedia(mediaUrl);
+    }
   };
-
-  // Preload images for smoother gallery experience
-  useEffect(() => {
-    filteredMedia.forEach(item => {
-      if (item && item.url) {
-        const img = new Image();
-        img.src = item.url;
-      }
-    });
-  }, [filteredMedia]);
 
   if (error) {
     console.error("Media gallery error:", error);
@@ -111,7 +118,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
       <MediaGalleryModal
         selectedMedia={selectedMedia}
         onOpenChange={(open) => !open && setSelectedMedia(null)}
-        mediaItems={media}
+        mediaItems={mediaToShow}
       />
     </div>
   );
