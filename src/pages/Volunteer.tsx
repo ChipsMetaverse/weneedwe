@@ -4,6 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const VolunteerPage = () => {
   const [name, setName] = useState('');
@@ -11,6 +20,7 @@ const VolunteerPage = () => {
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +58,30 @@ const VolunteerPage = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-3xl mx-auto">
+        <div className="mb-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink>Volunteer</BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="mt-4 mb-2 inline-flex items-center gap-1" 
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </Button>
+        </div>
+
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Volunteer With Us</h1>
           <div className="h-1 w-20 bg-primary mx-auto mb-6"></div>
