@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDonations } from '@/hooks/useDonations';
@@ -6,6 +5,7 @@ import { useEvents } from '@/hooks/useEvents';
 import { useMedia } from '@/hooks/useMedia';
 import { useVolunteerApplications } from '@/hooks/useVolunteerApplications';
 import { useGallery } from '@/hooks/useGallery';
+import { GalleryItem } from '@/components/gallery/types';
 
 // Import dashboard components
 import DashboardMetrics from './dashboard/DashboardMetrics';
