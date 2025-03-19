@@ -12,16 +12,96 @@ interface GalleryItemProps {
 
 const GalleryItem: React.FC<GalleryItemProps> = ({ 
   item, 
-  onClick
+  onClick,
+  delay = 0
 }) => {
   const imageLoading = useImageLoading();
+  
+  // Extract style properties from item if they exist
+  const {
+    animation = 'fade', // 'fade', 'scale', 'slide', 'none'
+    hoverEffect = 'zoom', // 'zoom', 'lift', 'glow', 'none'
+    textPosition = 'bottom', // 'bottom', 'center', 'overlay'
+    aspectRatio = '3/4', // '1/1', '16/9', '3/4', '4/3'
+    cornerRadius = 'rounded-2xl', // 'rounded-none', 'rounded-lg', 'rounded-2xl', 'rounded-full'
+    shadowSize = 'shadow-sm', // 'shadow-none', 'shadow-sm', 'shadow-md', 'shadow-lg'
+    gradientOpacity = '50', // '0', '25', '50', '75', '100'
+    textTheme = 'light', // 'light', 'dark'
+    ...restItem
+  } = item;
+  
+  // Animation class based on item configuration
+  const getAnimationClass = () => {
+    switch (animation) {
+      case 'fade':
+        return 'transition-opacity duration-700 animate-fade-in';
+      case 'scale':
+        return 'transition-all duration-700 animate-scale-in';
+      case 'slide':
+        return 'transition-all duration-700 animate-fade-in-up';
+      case 'none':
+      default:
+        return '';
+    }
+  };
+  
+  // Hover effect class based on item configuration
+  const getHoverEffectClass = () => {
+    switch (hoverEffect) {
+      case 'zoom':
+        return 'group-hover:scale-105';
+      case 'lift':
+        return 'group-hover:translate-y-[-8px]';
+      case 'glow':
+        return 'group-hover:shadow-xl group-hover:shadow-primary/20';
+      case 'none':
+      default:
+        return '';
+    }
+  };
+  
+  // Get text position classes
+  const getTextPositionClass = () => {
+    switch (textPosition) {
+      case 'center':
+        return 'items-center justify-center text-center';
+      case 'overlay':
+        return 'items-center justify-center text-center bg-black/30';
+      case 'bottom':
+      default:
+        return 'items-start justify-end';
+    }
+  };
+  
+  // Get aspect ratio style
+  const getAspectRatioStyle = () => {
+    return { aspectRatio };
+  };
+  
+  // Get gradient opacity
+  const getGradientClass = () => {
+    if (textPosition === 'overlay') return '';
+    const opacity = gradientOpacity === '0' ? '0' : gradientOpacity;
+    return `from-black/${opacity} to-transparent`;
+  };
+  
+  // Get text color based on theme
+  const getTextColorClass = () => {
+    return textTheme === 'light' ? 'text-white' : 'text-foreground';
+  };
   
   return (
     <div 
       className={cn(
-        "group cursor-pointer rounded-2xl overflow-hidden shadow-sm transition-all duration-300",
-        "hover:shadow-md hover:translate-y-[-4px]"
+        "group cursor-pointer overflow-hidden transition-all duration-300",
+        cornerRadius,
+        shadowSize,
+        "hover:shadow-md",
+        getAnimationClass(),
       )}
+      style={{ 
+        animationDelay: `${delay * 100}ms`,
+      }}
       onClick={onClick}
       role="button"
       aria-label={`View ${item.title}`}
@@ -33,16 +113,19 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
         }
       }}
     >
-      <div className="relative overflow-hidden aspect-[3/4]">
-        {/* Static background instead of animated loading state */}
-        <div className="absolute inset-0 bg-secondary"></div>
+      <div 
+        className="relative overflow-hidden"
+        style={getAspectRatioStyle()}
+      >
+        {/* Background color while image loads */}
+        <div className="absolute inset-0 bg-secondary/30"></div>
         
         <img 
           src={item.imageUrl} 
           alt={item.title}
           className={cn(
             "w-full h-full object-cover transition-all duration-500",
-            "group-hover:scale-105",
+            getHoverEffectClass(),
             imageLoading.isLoaded ? 'opacity-100' : 'opacity-0'
           )}
           onLoad={imageLoading.handleLoad}
@@ -52,17 +135,43 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
           }}
         />
         
-        {/* Only a subtle gradient at the bottom for text readability */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent"></div>
+        {/* Only show gradient at the bottom for text readability */}
+        {textPosition !== 'overlay' && (
+          <div 
+            className={cn(
+              "absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t",
+              getGradientClass()
+            )}
+          ></div>
+        )}
         
-        {/* Centered title and category by default, moves to bottom on hover */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 group-hover:items-start group-hover:justify-end transition-all duration-300">
-          <div className="transform transition-all duration-300 group-hover:translate-y-0 group-hover:text-left w-full">
-            <span className="inline-block px-3 py-1 mb-2 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm text-white">
+        {/* Title and description container */}
+        <div 
+          className={cn(
+            "absolute inset-0 flex flex-col p-6 transition-all duration-300",
+            getTextPositionClass()
+          )}
+        >
+          <div className="transform transition-all duration-300 w-full">
+            <span className={cn(
+              "inline-block px-3 py-1 mb-2 text-xs font-medium rounded-full",
+              "bg-white/20 backdrop-blur-sm",
+              getTextColorClass()
+            )}>
               {item.category}
             </span>
-            <h3 className="text-lg font-medium text-white mb-1">{item.title}</h3>
-            <p className="text-sm text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{item.description}</p>
+            <h3 className={cn(
+              "text-lg font-medium mb-1",
+              getTextColorClass()
+            )}>
+              {item.title}
+            </h3>
+            <p className={cn(
+              "text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+              textTheme === 'light' ? 'text-white/80' : 'text-foreground/80'
+            )}>
+              {item.description}
+            </p>
           </div>
         </div>
       </div>
