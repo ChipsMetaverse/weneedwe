@@ -53,8 +53,8 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
           }}
         />
         
-        {/* Subtle gradient at the bottom for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 w-full h-1/3 bottom-0 top-auto"></div>
+        {/* Always visible gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300"></div>
         
         {/* Centered title and category by default, moves to bottom on hover */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 group-hover:items-start group-hover:justify-end transition-all duration-300">
