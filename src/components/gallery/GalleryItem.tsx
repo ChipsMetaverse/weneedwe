@@ -34,8 +34,8 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
       }}
     >
       <div className="relative overflow-hidden aspect-[3/4]">
-        {/* Loading state */}
-        <div className="absolute inset-0 bg-secondary animate-pulse"></div>
+        {/* Static background instead of animated loading state */}
+        <div className="absolute inset-0 bg-secondary"></div>
         
         <img 
           src={item.imageUrl} 
