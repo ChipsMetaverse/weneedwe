@@ -33,58 +33,77 @@ export const useMedia = () => {
   const queryClient = useQueryClient();
 
   const fetchMedia = async (): Promise<Media[]> => {
-    const { data, error } = await supabase
-      .from('media')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      console.log("Fetching media data from Supabase...");
+      const { data, error } = await supabase
+        .from('media')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error("Error fetching media:", error);
-      toast.error("Failed to load media gallery");
+      if (error) {
+        console.error("Error fetching media:", error);
+        throw error;
+      }
+
+      console.log("Media data fetched:", data);
+      
+      // Transform the data to ensure proper typing
+      return (data || []).map(item => ({
+        ...item,
+        metadata: item.metadata as Media['metadata']
+      }));
+    } catch (error) {
+      console.error("Error in fetchMedia function:", error);
       throw error;
     }
-
-    // Transform the data to ensure proper typing
-    return (data || []).map(item => ({
-      ...item,
-      metadata: item.metadata as Media['metadata']
-    }));
   };
 
   const createMedia = async (media: MediaInput): Promise<Media> => {
-    const { data, error } = await supabase
-      .from('media')
-      .insert(media)
-      .select()
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('media')
+        .insert(media)
+        .select()
+        .single();
 
-    if (error) {
-      console.error("Error creating media:", error);
-      toast.error("Failed to upload media");
+      if (error) {
+        console.error("Error creating media:", error);
+        toast.error("Failed to upload media");
+        throw error;
+      }
+
+      // Transform to ensure proper typing
+      return {
+        ...data,
+        metadata: data.metadata as Media['metadata']
+      };
+    } catch (error) {
+      console.error("Error in createMedia function:", error);
       throw error;
     }
-
-    // Transform to ensure proper typing
-    return {
-      ...data,
-      metadata: data.metadata as Media['metadata']
-    };
   };
 
   const mediaQuery = useQuery({
     queryKey: ['media'],
     queryFn: fetchMedia,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: 2,
   });
 
   const createMediaMutation = useMutation({
     mutationFn: createMedia,
     onSuccess: () => {
+      toast.success("Media uploaded successfully");
       queryClient.invalidateQueries({ queryKey: ['media'] });
     },
+    onError: (error) => {
+      console.error("Error in createMedia mutation:", error);
+      toast.error("Failed to upload media");
+    }
   });
 
   const getMediaByCategory = (category?: string) => {
-    if (!category) return mediaQuery.data || [];
+    if (!category || category === 'All') return mediaQuery.data || [];
     return (mediaQuery.data || []).filter(
       item => item.metadata?.category === category
     );
@@ -95,6 +114,7 @@ export const useMedia = () => {
     getMediaByCategory,
     isLoading: mediaQuery.isLoading,
     error: mediaQuery.error,
+    refetch: mediaQuery.refetch,
     createMedia: createMediaMutation.mutate,
     isPending: createMediaMutation.isPending,
   };

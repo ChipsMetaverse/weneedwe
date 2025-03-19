@@ -21,14 +21,35 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
   categories = ['All', 'Events', 'Community', 'Projects'],
   showViewAll = true
 }) => {
-  const { media, getMediaByCategory, isLoading } = useMedia();
+  const { media, getMediaByCategory, isLoading, error, refetch } = useMedia();
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
   const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1, triggerOnce: true });
 
+  // Create fallback images if no media or if there's an error
+  const fallbackMedia = activeCategory === 'All'
+    ? Array(limit).fill(null).map((_, i) => ({
+        id: `fallback-${i}`,
+        url: `https://source.unsplash.com/random/800x600?${activeCategory.toLowerCase()}&sig=${i}`,
+        type: 'image',
+        metadata: {
+          title: 'Community Image',
+          description: 'Community event or activity',
+          category: activeCategory
+        },
+        created_at: new Date().toISOString(),
+        uploaded_by: null
+      }))
+    : [];
+
+  // Use actual media or fallback if empty
+  const mediaToShow = media && media.length > 0 ? media : fallbackMedia;
+  
   const filteredMedia = activeCategory === 'All'
-    ? media.slice(0, limit)
-    : getMediaByCategory(activeCategory).slice(0, limit);
+    ? mediaToShow.slice(0, limit)
+    : (getMediaByCategory(activeCategory).length > 0 
+        ? getMediaByCategory(activeCategory).slice(0, limit) 
+        : fallbackMedia.slice(0, limit));
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
@@ -38,13 +59,32 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
     setSelectedMedia(mediaUrl);
   };
 
+  useEffect(() => {
+    // Log the media state for debugging
+    console.log("MediaGallery - media data:", media);
+    console.log("MediaGallery - filtered media:", filteredMedia);
+  }, [media, filteredMedia]);
+
   // Preload images for smoother gallery experience
   useEffect(() => {
     filteredMedia.forEach(item => {
-      const img = new Image();
-      img.src = item.url;
+      if (item && item.url) {
+        const img = new Image();
+        img.src = item.url;
+      }
     });
   }, [filteredMedia]);
+
+  if (error) {
+    console.error("Media gallery error:", error);
+    return (
+      <div className="text-center py-12 bg-muted/30 rounded-xl">
+        <ImageIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+        <p className="text-muted-foreground font-medium">Unable to load media gallery</p>
+        <Button variant="outline" className="mt-4" onClick={() => refetch()}>Try Again</Button>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -102,13 +142,15 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
             <div className="text-center py-12 bg-muted/30 rounded-xl">
               <ImageIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <p className="text-muted-foreground font-medium">No media available in this category</p>
-              <Button variant="outline" className="mt-4">Browse all categories</Button>
+              <Button variant="outline" className="mt-4" onClick={() => setActiveCategory('All')}>
+                Browse all categories
+              </Button>
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {filteredMedia.map((item, index) => (
                 <div 
-                  key={item.id}
+                  key={item?.id || `media-${index}`}
                   className={cn(
                     "transition-all duration-500",
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
@@ -117,17 +159,22 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
                 >
                   <Card 
                     className="overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg border border-border/40 hover:border-primary/20"
-                    onClick={() => handleMediaClick(item.url)}
+                    onClick={() => item?.url && handleMediaClick(item.url)}
                   >
                     <CardContent className="p-0 relative overflow-hidden group">
                       <AspectRatio ratio={3/4}>
                         <img
-                          src={item.url}
-                          alt={item.metadata?.title || "Gallery image"}
+                          src={item?.url || '/placeholder.svg'}
+                          alt={item?.metadata?.title || "Gallery image"}
                           className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                          onError={(e) => {
+                            // Fallback for image loading errors
+                            const target = e.target as HTMLImageElement;
+                            target.src = '/placeholder.svg';
+                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        {item.metadata?.title && (
+                        {item?.metadata?.title && (
                           <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                             <p className="text-white font-medium text-sm truncate">{item.metadata.title}</p>
                           </div>
@@ -160,14 +207,18 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({
               src={selectedMedia}
               alt="Selected media"
               className="w-full h-auto max-h-[70vh] object-contain"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder.svg';
+              }}
             />
           )}
           <div className="p-6">
             <DialogTitle className="text-xl">
-              {media.find(item => item.url === selectedMedia)?.metadata?.title || "Media Item"}
+              {media?.find(item => item?.url === selectedMedia)?.metadata?.title || "Media Item"}
             </DialogTitle>
             <DialogDescription className="mt-2 text-muted-foreground">
-              {media.find(item => item.url === selectedMedia)?.metadata?.description || ""}
+              {media?.find(item => item?.url === selectedMedia)?.metadata?.description || ""}
             </DialogDescription>
           </div>
         </DialogContent>
