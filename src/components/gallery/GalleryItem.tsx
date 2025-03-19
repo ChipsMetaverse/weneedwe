@@ -56,13 +56,15 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
         {/* Always visible gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300"></div>
         
-        {/* Always show title and category, enhanced on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 transform transition-all duration-300">
-          <span className="inline-block px-3 py-1 mb-2 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm text-white">
-            {item.category}
-          </span>
-          <h3 className="text-lg font-medium text-white mb-1">{item.title}</h3>
-          <p className="text-sm text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{item.description}</p>
+        {/* Centered title and category by default, moves to bottom on hover */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 group-hover:items-start group-hover:justify-end transition-all duration-300">
+          <div className="transform transition-all duration-300 group-hover:translate-y-0 group-hover:text-left w-full">
+            <span className="inline-block px-3 py-1 mb-2 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm text-white">
+              {item.category}
+            </span>
+            <h3 className="text-lg font-medium text-white mb-1">{item.title}</h3>
+            <p className="text-sm text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{item.description}</p>
+          </div>
         </div>
       </div>
     </div>
