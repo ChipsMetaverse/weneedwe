@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -16,56 +16,56 @@ export type VolunteerApplication = {
 export type ApplicationStatus = 'pending' | 'approved' | 'rejected';
 
 export const useVolunteerApplications = () => {
-  const [applications, setApplications] = useState<VolunteerApplication[]>([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  const fetchApplications = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('volunteer_applications')
-        .select('*')
-        .order('created_at', { ascending: false });
+  const fetchApplications = async (): Promise<VolunteerApplication[]> => {
+    const { data, error } = await supabase
+      .from('volunteer_applications')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-      if (error) throw error;
-      setApplications(data || []);
-    } catch (error: any) {
+    if (error) {
+      console.error("Error fetching applications:", error);
       toast.error(`Error fetching applications: ${error.message}`);
-    } finally {
-      setLoading(false);
+      throw error;
     }
+
+    return data || [];
   };
 
-  const updateApplicationStatus = async (id: string, status: ApplicationStatus) => {
-    try {
-      const { error } = await supabase
-        .from('volunteer_applications')
-        .update({ status })
-        .eq('id', id);
+  const updateApplicationStatus = async ({ id, status }: { id: string; status: ApplicationStatus }): Promise<void> => {
+    const { error } = await supabase
+      .from('volunteer_applications')
+      .update({ status })
+      .eq('id', id);
 
-      if (error) throw error;
-      
-      // Update local state to reflect the change
-      setApplications(prevApplications =>
-        prevApplications.map(app =>
-          app.id === id ? { ...app, status } : app
-        )
-      );
-      
-      toast.success(`Application ${status}`);
-    } catch (error: any) {
+    if (error) {
+      console.error("Error updating application:", error);
       toast.error(`Error updating application: ${error.message}`);
+      throw error;
     }
+    
+    toast.success(`Application ${status}`);
   };
 
-  useEffect(() => {
-    fetchApplications();
-  }, []);
+  const applicationsQuery = useQuery({
+    queryKey: ['volunteer-applications'],
+    queryFn: fetchApplications,
+  });
+
+  const updateStatusMutation = useMutation({
+    mutationFn: updateApplicationStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['volunteer-applications'] });
+    },
+  });
 
   return {
-    applications,
-    loading,
-    fetchApplications,
-    updateApplicationStatus
+    applications: applicationsQuery.data || [],
+    loading: applicationsQuery.isLoading,
+    error: applicationsQuery.error,
+    fetchApplications: () => queryClient.invalidateQueries({ queryKey: ['volunteer-applications'] }),
+    updateApplicationStatus: (id: string, status: ApplicationStatus) => 
+      updateStatusMutation.mutate({ id, status }),
   };
 };
