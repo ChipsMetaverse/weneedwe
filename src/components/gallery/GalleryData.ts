@@ -1,7 +1,7 @@
 
 import { GalleryItem } from './types';
 
-// Real gallery items with local image paths
+// Real gallery items with paths to photos that exist in the photos directory
 export const galleryItems: GalleryItem[] = [
   {
     id: 1,
