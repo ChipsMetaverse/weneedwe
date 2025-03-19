@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { useIntersectionObserver } from '@/utils/animations';
 import { supabase } from '@/integrations/supabase/client';
 import GalleryItem from './gallery/GalleryItem';
 import LightboxModal from './gallery/LightboxModal';
@@ -16,7 +15,6 @@ const Gallery = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [items, setItems] = useState<GalleryItemType[]>(galleryItems);
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
   // Filter gallery items based on category and search query
   const filteredItems = items.filter(item => {
@@ -27,22 +25,9 @@ const Gallery = () => {
     return matchesCategory && matchesSearch;
   });
 
-  // In a real app, we would fetch data from Supabase
-  // This is a mock implementation showing how we would do it
   const fetchGalleryItems = async () => {
     try {
       setIsLoading(true);
-      
-      // In a real implementation, we would fetch from Supabase
-      // const { data, error } = await supabase
-      //   .from('media')
-      //   .select('*')
-      //   .eq('type', 'gallery')
-      //   .order('created_at', { ascending: false });
-      
-      // if (error) throw error;
-      // setItems(data as unknown as GalleryItemType[]);
-      
       // For this mock, we'll simulate a network delay
       await new Promise(resolve => setTimeout(resolve, 800));
       setItems(galleryItems);
@@ -149,7 +134,7 @@ const Gallery = () => {
   return (
     <section id="gallery" className="py-24 bg-white">
       <div className="container mx-auto px-6">
-        <GalleryHeader ref={ref as React.RefObject<HTMLDivElement>} isVisible={isVisible} />
+        <GalleryHeader />
 
         <GalleryFilters 
           categories={allCategories}

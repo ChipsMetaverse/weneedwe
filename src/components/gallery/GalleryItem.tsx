@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useIntersectionObserver, useImageLoading } from '@/utils/animations';
+import { useImageLoading } from '@/utils/animations';
 import { cn } from '@/lib/utils';
 import { GalleryItem as GalleryItemType } from './types';
 
@@ -12,21 +12,16 @@ interface GalleryItemProps {
 
 const GalleryItem: React.FC<GalleryItemProps> = ({ 
   item, 
-  onClick, 
-  delay 
+  onClick
 }) => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   const imageLoading = useImageLoading();
   
   return (
     <div 
-      ref={ref as React.RefObject<HTMLDivElement>}
       className={cn(
         "group cursor-pointer rounded-2xl overflow-hidden shadow-sm transition-all duration-300",
-        "hover:shadow-md hover:translate-y-[-4px]",
-        isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'
+        "hover:shadow-md hover:translate-y-[-4px]"
       )}
-      style={{ animationDelay: `${0.2 + delay * 0.1}s` }}
       onClick={onClick}
       role="button"
       aria-label={`View ${item.title}`}
@@ -51,6 +46,11 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
             imageLoading.isLoaded ? 'opacity-100' : 'opacity-0'
           )}
           onLoad={imageLoading.handleLoad}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            console.error(`Failed to load image: ${item.imageUrl}`);
+            // Use a fallback if needed
+          }}
         />
         
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
