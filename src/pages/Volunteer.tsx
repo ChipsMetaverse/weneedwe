@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const VolunteerPage = () => {
   const [name, setName] = useState('');
@@ -11,19 +12,37 @@ const VolunteerPage = () => {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Submit the application to Supabase
+      const { error } = await supabase
+        .from('volunteer_applications')
+        .insert([
+          { 
+            name, 
+            email, 
+            phone: phone || null,  // Handle empty phone as null
+            message 
+          }
+        ]);
+
+      if (error) throw error;
+
       toast.success('Thank you for volunteering! We will contact you soon.');
+      
+      // Clear the form
       setName('');
       setEmail('');
       setPhone('');
       setMessage('');
+    } catch (error: any) {
+      toast.error(`Error submitting application: ${error.message}`);
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (

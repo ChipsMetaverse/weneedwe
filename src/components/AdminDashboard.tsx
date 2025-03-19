@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useDonations } from '@/hooks/useDonations';
 import { useEvents } from '@/hooks/useEvents';
 import { useMedia, MediaInput } from '@/hooks/useMedia';
-import { PlusCircle, Calendar, Image, DollarSign, Clock } from "lucide-react";
+import { useVolunteerApplications, ApplicationStatus } from '@/hooks/useVolunteerApplications';
+import { PlusCircle, Calendar, Image, DollarSign, Clock, Users, CheckCircle, XCircle, AlertCircle } from "lucide-react";
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 
@@ -17,6 +18,7 @@ const AdminDashboard = () => {
   const { donations, totalDonationAmount } = useDonations();
   const { events, createEvent } = useEvents();
   const { media, createMedia } = useMedia();
+  const { applications, updateApplicationStatus, loading: loadingApplications } = useVolunteerApplications();
   
   const [newEvent, setNewEvent] = useState({
     title: '',
@@ -34,6 +36,8 @@ const AdminDashboard = () => {
       category: 'Community'
     }
   });
+
+  const pendingApplications = applications.filter(app => app.status === 'pending').length;
 
   const handleEventSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,11 +80,22 @@ const AdminDashboard = () => {
     });
   };
 
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'approved':
+        return 'bg-green-100 text-green-800';
+      case 'rejected':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-yellow-100 text-yellow-800';
+    }
+  };
+
   return (
     <div className="container py-12">
       <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Donations</CardTitle>
@@ -93,6 +108,7 @@ const AdminDashboard = () => {
             </p>
           </CardContent>
         </Card>
+        
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Upcoming Events</CardTitle>
@@ -105,6 +121,7 @@ const AdminDashboard = () => {
             </p>
           </CardContent>
         </Card>
+        
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Media Items</CardTitle>
@@ -117,13 +134,27 @@ const AdminDashboard = () => {
             </p>
           </CardContent>
         </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Volunteer Applications</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{applications.length}</div>
+            <p className="text-xs text-muted-foreground">
+              {pendingApplications} pending applications
+            </p>
+          </CardContent>
+        </Card>
       </div>
       
       <Tabs defaultValue="events" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-8">
+        <TabsList className="grid w-full grid-cols-4 mb-8">
           <TabsTrigger value="events">Events</TabsTrigger>
           <TabsTrigger value="media">Media</TabsTrigger>
           <TabsTrigger value="donations">Donations</TabsTrigger>
+          <TabsTrigger value="volunteers">Volunteers</TabsTrigger>
         </TabsList>
         
         <TabsContent value="events" className="space-y-4">
@@ -371,6 +402,94 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="volunteers" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Volunteer Applications</CardTitle>
+              <CardDescription>
+                Manage volunteer applications and their status
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loadingApplications ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+                </div>
+              ) : applications.length === 0 ? (
+                <p className="text-muted-foreground text-center py-4">No applications found</p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Contact</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {applications.map((application) => (
+                        <TableRow key={application.id}>
+                          <TableCell className="font-medium">{application.name}</TableCell>
+                          <TableCell>
+                            <div>{application.email}</div>
+                            {application.phone && (
+                              <div className="text-sm text-muted-foreground">{application.phone}</div>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            {format(new Date(application.created_at), 'MMM dd, yyyy')}
+                          </TableCell>
+                          <TableCell>
+                            <span className={`text-xs px-2 py-1 rounded-full ${getStatusBadgeClass(application.status)}`}>
+                              {application.status}
+                            </span>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex space-x-2">
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="h-8 w-8 p-0" 
+                                onClick={() => updateApplicationStatus(application.id, 'approved')}
+                                disabled={application.status === 'approved'}
+                              >
+                                <CheckCircle className="h-4 w-4 text-green-600" />
+                                <span className="sr-only">Approve</span>
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="h-8 w-8 p-0"
+                                onClick={() => updateApplicationStatus(application.id, 'rejected')}
+                                disabled={application.status === 'rejected'}
+                              >
+                                <XCircle className="h-4 w-4 text-red-600" />
+                                <span className="sr-only">Reject</span>
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => {
+                                  toast.info("Message: " + application.message);
+                                }}
+                              >
+                                View
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </div>
               )}
             </CardContent>
