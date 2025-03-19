@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDonations } from '@/hooks/useDonations';
@@ -28,6 +29,19 @@ const AdminDashboard = () => {
   
   const pendingApplications = applications.filter(app => app.status === 'pending').length;
   const mediaEventPhotos = media.filter(item => item.metadata?.category === 'Events').length;
+
+  // We need to wrap the functions in async functions to match the expected Promise<any> return type
+  const handleCreateGalleryItem = async (item: Omit<GalleryItem, "id">) => {
+    return createGalleryItem(item);
+  };
+
+  const handleUpdateGalleryItem = async (id: number, item: Partial<GalleryItem>) => {
+    return updateGalleryItem(id, item);
+  };
+
+  const handleDeleteGalleryItem = async (id: number) => {
+    return deleteGalleryItem(id);
+  };
 
   return (
     <div className="container py-12">
@@ -63,9 +77,9 @@ const AdminDashboard = () => {
         <TabsContent value="gallery" className="space-y-4">
           <GalleryTab 
             galleryItems={galleryItems}
-            createGalleryItem={createGalleryItem}
-            updateGalleryItem={updateGalleryItem}
-            deleteGalleryItem={deleteGalleryItem}
+            createGalleryItem={handleCreateGalleryItem}
+            updateGalleryItem={handleUpdateGalleryItem}
+            deleteGalleryItem={handleDeleteGalleryItem}
           />
         </TabsContent>
         

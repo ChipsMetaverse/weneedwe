@@ -5,6 +5,7 @@ export interface GalleryItem {
   description: string;
   imageUrl: string;
   category: string;
+  date?: string;
   // Animation and styling options
   animation?: 'fade' | 'scale' | 'slide' | 'none';
   hoverEffect?: 'zoom' | 'lift' | 'glow' | 'none';
