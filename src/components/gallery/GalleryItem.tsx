@@ -47,14 +47,13 @@ const GalleryItem: React.FC<GalleryItemProps> = ({
           )}
           onLoad={imageLoading.handleLoad}
           onError={(e) => {
-            const target = e.target as HTMLImageElement;
             console.error(`Failed to load image: ${item.imageUrl}`);
             // Use a fallback if needed
           }}
         />
         
-        {/* Always visible gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300"></div>
+        {/* Only a subtle gradient at the bottom for text readability */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent"></div>
         
         {/* Centered title and category by default, moves to bottom on hover */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 group-hover:items-start group-hover:justify-end transition-all duration-300">
