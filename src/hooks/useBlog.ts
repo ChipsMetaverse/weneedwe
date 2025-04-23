@@ -1,7 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { blogPosts as localBlogPosts } from "@/data/siteData";
 
 export interface BlogPost {
   id: string;
@@ -32,22 +32,30 @@ export const useBlog = () => {
 
   const fetchBlogPosts = async (): Promise<BlogPost[]> => {
     try {
+      // Attempt to fetch from Supabase
       const { data, error } = await supabase
         .from('blog')
         .select('*')
         .order('published_at', { ascending: false });
 
       if (error) {
-        console.error("Error fetching blog posts:", error);
-        toast.error("Failed to load blog posts");
-        throw error;
+        console.error("Error fetching blog posts from Supabase:", error);
+        console.log("Using local blog posts data instead");
+        // Return local data if there's an error
+        return localBlogPosts;
       }
 
-      return data || [];
+      // Use local data if no data is returned
+      if (!data || data.length === 0) {
+        console.log("No blog posts found in Supabase. Using local data.");
+        return localBlogPosts;
+      }
+
+      return data;
     } catch (err) {
       console.error("Error in fetchBlogPosts:", err);
-      // Return empty array instead of throwing to prevent UI from breaking
-      return [];
+      // Return local data as a fallback
+      return localBlogPosts;
     }
   };
 

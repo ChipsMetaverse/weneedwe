@@ -1,0 +1,316 @@
+{
+  "pages": [
+    {
+      "title": "About",
+      "path": "/",
+      "content": {
+        "hero": {
+          "title": "Empowering Communities Through HIV Education",
+          "subtitle": "We Need We is a community-focused nonprofit dedicated to promoting HIV awareness, providing support services, and creating safe spaces for education and empowerment.",
+          "callToAction": "Join Our Mission"
+        },
+        "stats": [
+          {
+            "value": "2018",
+            "label": "Year Founded"
+          },
+          {
+            "value": "5,000+",
+            "label": "Lives Impacted"
+          },
+          {
+            "value": "20+",
+            "label": "Community Partners"
+          },
+          {
+            "value": "15",
+            "label": "Communities Served"
+          }
+        ],
+        "mission": {
+          "title": "Our Mission & Values",
+          "description": "We are committed to raising awareness about HIV, reducing stigma, and providing resources for those affected by HIV/AIDS.",
+          "values": [
+            {
+              "title": "Support",
+              "description": "We provide emotional and educational support for individuals and communities affected by HIV."
+            },
+            {
+              "title": "Education",
+              "description": "We believe in the power of knowledge to prevent new HIV infections and combat stigma."
+            },
+            {
+              "title": "Advocacy",
+              "description": "We advocate for policies that protect the rights and dignity of those living with HIV."
+            }
+          ]
+        },
+        "impact": {
+          "title": "Our Impact",
+          "description": "Since 2018, we've been making a difference in communities across the country. Our programs have reached thousands of individuals, providing educational resources, testing services, and emotional support.",
+          "highlights": [
+            {
+              "title": "Testing & Prevention",
+              "description": "Facilitated over 2,500 HIV tests and distributed prevention resources."
+            },
+            {
+              "title": "Education & Awareness",
+              "description": "Conducted 150+ workshops in schools, community centers, and healthcare facilities."
+            },
+            {
+              "title": "Support Groups",
+              "description": "Established 12 support groups providing ongoing assistance to those affected by HIV."
+            }
+          ]
+        },
+        "cta": {
+          "title": "Be Part of Our Mission",
+          "description": "Whether you want to volunteer, donate, or simply learn more, there are many ways to support our mission of HIV awareness and education."
+        }
+      }
+    },
+    {
+      "title": "BW-SELF Advocacy",
+      "path": "/services",
+      "content": {
+        "hero": {
+          "title": "BW-SELF Advocacy Program",
+          "subtitle": "Empowering Black Women through Self-Advocacy, Education, and Leadership",
+          "callToAction": "Learn More"
+        },
+        "about": {
+          "title": "About the Program",
+          "description": "The BW-SELF (Black Women - Self Empowerment Leadership Framework) Advocacy program empowers Black Women to navigate healthcare systems, pursue education, and access community resources."
+        },
+        "features": [
+          {
+            "title": "Self-Advocacy Skills",
+            "description": "Developing skills to effectively communicate needs and concerns in healthcare settings."
+          },
+          {
+            "title": "Healthcare Navigation",
+            "description": "Learning to navigate complex healthcare systems and access appropriate care."
+          },
+          {
+            "title": "Education Support",
+            "description": "Resources and mentorship for educational advancement and career development."
+          },
+          {
+            "title": "Community Resources",
+            "description": "Connecting with community resources and support networks."
+          }
+        ],
+        "testimonials": [
+          {
+            "quote": "This program gave me the confidence to speak up for myself in healthcare settings.",
+            "author": "Program Participant"
+          }
+        ],
+        "cta": {
+          "title": "Join the Program",
+          "description": "If you're interested in joining the BW-SELF Advocacy Program, please contact us for more information."
+        }
+      }
+    },
+    {
+      "title": "Just The Facts",
+      "path": "/events",
+      "content": {
+        "hero": {
+          "title": "Just The Facts",
+          "subtitle": "Evidence-based information about HIV/AIDS, prevention, and treatment",
+          "callToAction": "Get Informed"
+        },
+        "facts": [
+          {
+            "title": "HIV Prevention",
+            "description": "Information about prevention methods including PrEP, PEP, and safer sex practices."
+          },
+          {
+            "title": "Testing",
+            "description": "Resources for HIV testing, including free and confidential options."
+          },
+          {
+            "title": "Treatment",
+            "description": "Information about antiretroviral therapy and other treatment options."
+          },
+          {
+            "title": "Living with HIV",
+            "description": "Resources and support for those living with HIV."
+          }
+        ]
+      }
+    },
+    {
+      "title": "Webinars",
+      "path": "/outreach",
+      "content": {
+        "hero": {
+          "title": "Educational Webinars",
+          "subtitle": "Expanding knowledge through online learning opportunities",
+          "callToAction": "Join Our Next Webinar"
+        },
+        "upcoming": [
+          {
+            "title": "HIV Prevention Updates",
+            "date": "TBD",
+            "description": "Learn about the latest advances in HIV prevention."
+          },
+          {
+            "title": "Self-Advocacy in Healthcare",
+            "date": "TBD",
+            "description": "Strategies for effective communication with healthcare providers."
+          }
+        ],
+        "past": [
+          {
+            "title": "Understanding HIV Treatment",
+            "date": "Past",
+            "description": "An overview of current HIV treatment options."
+          }
+        ]
+      }
+    },
+    {
+      "title": "Donate",
+      "path": "/donate",
+      "content": {
+        "hero": {
+          "title": "Support Our Cause",
+          "subtitle": "Your donation helps us continue our mission of HIV awareness and education",
+          "callToAction": "Donate Now"
+        },
+        "impact": {
+          "title": "Your Impact",
+          "items": [
+            {
+              "amount": "$25",
+              "description": "Provides educational materials for one person"
+            },
+            {
+              "amount": "$50",
+              "description": "Supports one person attending a workshop"
+            },
+            {
+              "amount": "$100",
+              "description": "Helps provide HIV testing for 5 people"
+            },
+            {
+              "amount": "$500",
+              "description": "Sponsors a community education event"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "SheStories Blog",
+      "path": "/shestories-blog",
+      "content": {
+        "hero": {
+          "title": "SheStories Blog",
+          "subtitle": "Personal stories, insights, and experiences shared by our community",
+          "callToAction": "Read Our Stories"
+        },
+        "featured": [
+          {
+            "title": "My Journey to Health Advocacy",
+            "excerpt": "A personal story of how I found my voice in healthcare settings and became an advocate for myself and others.",
+            "author": "Community Member",
+            "date": "2023"
+          },
+          {
+            "title": "Finding Community in Health Challenges",
+            "excerpt": "How connecting with others facing similar health issues can provide support, resources, and empowerment.",
+            "author": "Community Member",
+            "date": "2023"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Resources",
+      "path": "/resources",
+      "content": {
+        "hero": {
+          "title": "Resources",
+          "subtitle": "Tools, information, and support for those affected by HIV/AIDS",
+          "callToAction": "Access Resources"
+        },
+        "categories": [
+          {
+            "title": "HIV Testing",
+            "resources": [
+              {
+                "title": "Free Testing Locations",
+                "description": "Find free and confidential HIV testing near you."
+              }
+            ]
+          },
+          {
+            "title": "Healthcare Resources",
+            "resources": [
+              {
+                "title": "HIV Care Providers",
+                "description": "Directory of healthcare providers specializing in HIV care."
+              }
+            ]
+          },
+          {
+            "title": "Support Services",
+            "resources": [
+              {
+                "title": "Support Groups",
+                "description": "Find support groups for those affected by HIV/AIDS."
+              }
+            ]
+          },
+          {
+            "title": "Educational Materials",
+            "resources": [
+              {
+                "title": "HIV/AIDS Fact Sheets",
+                "description": "Download educational materials about HIV/AIDS."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "navigation": {
+    "main": [
+      {
+        "title": "About",
+        "path": "/"
+      },
+      {
+        "title": "BW-SELF Advocacy",
+        "path": "/services"
+      },
+      {
+        "title": "Just The Facts",
+        "path": "/events"
+      },
+      {
+        "title": "Webinars",
+        "path": "/outreach"
+      },
+      {
+        "title": "SheStories Blog",
+        "path": "/shestories-blog"
+      },
+      {
+        "title": "Resources",
+        "path": "/resources"
+      }
+    ],
+    "actions": [
+      {
+        "title": "Donate",
+        "path": "/donate",
+        "isPrimary": true
+      }
+    ]
+  }
+} 

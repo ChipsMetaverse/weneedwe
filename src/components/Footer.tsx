@@ -41,7 +41,7 @@ const Footer = () => {
   ];
   
   return (
-    <footer className="bg-gray-50 border-t border-border pt-16 pb-8">
+    <footer className="bg-pattern border-t border-border pt-16 pb-8">
       <div className="container mx-auto px-6">
         {/* Main footer content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -54,7 +54,7 @@ const Footer = () => {
               <span className="text-primary mr-1">
                 <Heart className="h-5 w-5 inline-block" />
               </span>
-              WeNeedWe
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">WeNeedWe</span>
             </a>
             <p className="text-muted-foreground mb-6 text-balance">
               WeNeedWe is dedicated to empowering individuals and families through comprehensive support services, education, and advocacy. We strive to create a community where everyone has the resources and opportunities they need to thrive.
@@ -186,11 +186,11 @@ const Footer = () => {
         </div>
         
         {/* Donation CTA */}
-        <div className="mt-16 mb-12 bg-primary/10 rounded-2xl p-8 lg:p-10">
+        <div className="mt-16 mb-12 glass rounded-2xl p-8 lg:p-10 border border-primary/10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             <div className="lg:col-span-2">
               <h3 className="text-2xl font-bold mb-3">Make a Difference Today</h3>
-              <p className="text-muted-foreground mb-6 lg:mb-0">
+              <p className="text-foreground/70 mb-6 lg:mb-0">
                 Your contribution helps us continue our mission of supporting communities in need.
                 Every donation, no matter how small, makes a significant impact.
               </p>
@@ -198,7 +198,7 @@ const Footer = () => {
             <div className="flex justify-center lg:justify-end">
               <a
                 href="#donate"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors inline-flex items-center"
+                className="button-primary px-8 py-3 inline-flex items-center"
               >
                 <Heart className="w-5 h-5 mr-2" />
                 Donate Now

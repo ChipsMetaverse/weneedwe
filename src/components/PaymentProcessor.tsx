@@ -27,7 +27,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({
       // In a real implementation, we would use different payment processors
       // For demo purposes, we'll just record the donation as successful with the selected method
       await processDonation(paymentMethod);
-      onSuccess();
+            onSuccess();
     } catch (error) {
       console.error("Payment processing error:", error);
     }
@@ -91,8 +91,8 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({
             className="flex flex-col gap-1 h-auto py-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 11l5-5 5 5M7 17l5-5 5 5"></path>
-            </svg>
+                <path d="M7 11l5-5 5 5M7 17l5-5 5 5"></path>
+              </svg>
             <span className="text-xs">PayPal</span>
           </Button>
           <Button 
@@ -131,10 +131,10 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({
 
         <div className="flex items-center space-x-2 p-4 border rounded-md bg-muted/50">
           {getPaymentMethodIcon(paymentMethod)}
-          <div className="text-sm">
+              <div className="text-sm">
             {paymentMethod.replace('_', ' ')} payment processing available in production
-          </div>
-        </div>
+              </div>
+            </div>
 
         {error && (
           <Alert variant="destructive" className="mt-4">

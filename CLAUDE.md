@@ -1,4 +1,6 @@
-# CLAUDE.md - Agent Instructions
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 WeneedWe is a web platform for community support with donation capabilities. Tech stack includes Vite/React, Supabase (backend), and integrations with Stripe/PayPal. It uses Shadcn UI components and Tailwind CSS for styling.
@@ -21,11 +23,11 @@ npm run build:dev
 # Preview production build
 npm run preview
 
-# Lint code
-npm run lint
-
 # Type checking
 npx tsc --noEmit
+
+# Lint code
+npm run lint
 
 # Format code with Prettier
 npx prettier --write src/
@@ -44,11 +46,15 @@ npx prettier --write src/
 - **Error Handling**: Try/catch with toast notifications for UI feedback, console.error for logging
 - **Component Structure**: Functional components with hooks, explicit return types, destructured props
 - **State Management**: React Query for server state, React Context for global UI state
+- **CSS**: Tailwind CSS with shadcn/ui components; use the cn() utility for class merging
 
-## Architecture
+## Project Structure
 - `/src/components/` - UI components and layout elements
 - `/src/components/ui/` - Shadcn reusable UI components
 - `/src/hooks/` - Custom React hooks
 - `/src/pages/` - Route-level page components
 - `/src/integrations/` - External service integrations (Supabase client in `@/integrations/supabase/client.ts`)
 - `/src/lib/` - Utility functions and helpers
+- `/src/context/` - React Context providers
+- `/src/utils/` - Utility functions and helper methods
+- `/client/` - Client-related assets and data

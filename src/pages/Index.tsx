@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
-import Gallery from '@/components/Gallery';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import EventsList from '@/components/EventsList';
@@ -45,7 +44,7 @@ const Index = () => {
         <Features />
         
         {/* Events section with improved spacing and consistency */}
-        <section className="py-20 bg-muted/30" id="events">
+        <section className="py-20 bg-pattern" id="events">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
@@ -60,7 +59,9 @@ const Index = () => {
                 Discover opportunities to connect, learn, and make a difference in your community through our diverse range of events.
               </p>
             </div>
+            <div className="glass p-8 rounded-2xl shadow-lg">
             <EventsList />
+            </div>
           </div>
         </section>
         
@@ -80,12 +81,14 @@ const Index = () => {
                 Explore moments that showcase our community's strength, resilience, and progress through visual stories.
               </p>
             </div>
+            <div className="gradient-card">
             <MediaGallery />
+            </div>
           </div>
         </section>
         
         {/* Blog section with consistent styling */}
-        <section className="py-20 bg-muted/30" id="blog">
+        <section className="py-20 bg-pattern" id="blog">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
@@ -100,14 +103,11 @@ const Index = () => {
                 Stay updated with the latest news, insights, and stories from our community initiatives.
               </p>
             </div>
-            <div className="max-w-6xl mx-auto">
+            <div className="glass p-8 rounded-2xl shadow-lg max-w-6xl mx-auto">
               <BlogPosts />
             </div>
           </div>
         </section>
-        
-        {/* Keep main visual gallery */}
-        <Gallery />
         
         {/* Contact section with improved spacing */}
         <ContactForm />

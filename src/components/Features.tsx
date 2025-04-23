@@ -11,6 +11,7 @@ import {
   Users,
   Leaf
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Updated services based on weneedwe.org content
 const features = [
@@ -19,65 +20,83 @@ const features = [
     description: 'Our advocacy program empowers Black Women to navigate healthcare systems, pursue education, and access community resources.',
     icon: HeartHandshake,
     delay: 0,
-    color: 'bg-red-100 text-red-600'
+    color: 'bg-red-100 text-red-700',
+    link: '/programs/bw-self',
+    featured: true
   },
   {
     title: 'HIV Support Services',
     description: 'We provide comprehensive support for individuals living with HIV, including linkage to medical care, counseling, and peer support groups.',
     icon: PlusCircle,
     delay: 0.1,
-    color: 'bg-green-100 text-green-600'
+    color: 'bg-red-50 text-red-600',
+    link: '#',
+    featured: false
   },
   {
     title: 'Youth Empowerment',
     description: 'Our youth programs focus on developing leadership skills, promoting academic achievement, and fostering civic engagement among young people.',
     icon: BookOpen,
     delay: 0.2,
-    color: 'bg-purple-100 text-purple-600'
+    color: 'bg-rose-100 text-rose-700',
+    link: '#',
+    featured: false
   },
   {
     title: 'Community Health Education',
     description: 'We offer workshops and educational programs on various health topics, including nutrition, physical activity, and chronic disease prevention.',
     icon: Utensils,
     delay: 0.3,
-    color: 'bg-orange-100 text-orange-600'
+    color: 'bg-red-100 text-red-800',
+    link: '/webinars',
+    featured: true
   },
   {
     title: 'Education Programs',
     description: 'Offering educational resources, tutoring, and mentorship for children and adults in underserved communities.',
     icon: GraduationCap,
     delay: 0.4,
-    color: 'bg-blue-100 text-blue-600'
+    color: 'bg-rose-50 text-rose-600',
+    link: '/resources',
+    featured: true
   },
   {
     title: 'Housing Assistance',
     description: 'Helping families and individuals find safe, affordable housing and providing emergency shelter services.',
     icon: Home,
     delay: 0.5,
-    color: 'bg-amber-100 text-amber-600'
+    color: 'bg-red-50 text-red-700',
+    link: '#',
+    featured: false
   },
   {
     title: 'Senior Services',
     description: 'Supporting elderly community members with companionship, assistance, and specialized programs.',
     icon: Users,
     delay: 0.6,
-    color: 'bg-teal-100 text-teal-600'
+    color: 'bg-rose-100 text-rose-800',
+    link: '#',
+    featured: false
   },
   {
     title: 'Environmental Initiatives',
     description: 'Working to create cleaner, greener neighborhoods through community-based environmental projects.',
     icon: Leaf,
     delay: 0.7,
-    color: 'bg-emerald-100 text-emerald-600'
+    color: 'bg-red-100 text-red-600',
+    link: '#',
+    featured: false
   }
 ];
 
-const FeatureCard = ({ title, description, icon: Icon, delay, color }: {
+const FeatureCard = ({ title, description, icon: Icon, delay, color, link, featured }: {
   title: string;
   description: string;
   icon: React.ElementType;
   delay: number;
   color: string;
+  link: string;
+  featured?: boolean;
 }) => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
@@ -88,7 +107,39 @@ const FeatureCard = ({ title, description, icon: Icon, delay, color }: {
   // Get the base color (red, blue, etc.)
   const baseColor = colorClass.split('-')[1]; // e.g. "red"
   
-  return (
+  const CardContent = () => (
+    <div className="tilt-content">
+      <div className={cn(
+        "w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110",
+        `bg-${baseColor}-100`,
+        textColorClass,
+        "shadow-md shadow-" + baseColor + "-200/50"
+      )}>
+        <Icon className="w-8 h-8" />
+      </div>
+      {featured && (
+        <div className="mb-3 inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+          Featured Program
+        </div>
+      )}
+      <h3 className={`text-xl font-bold mb-4 ${textColorClass}`}>{title}</h3>
+      <p className="text-foreground/80 leading-relaxed">{description}</p>
+      
+      {link !== '#' && (
+        <div className={`mt-6 flex items-center gap-2 ${textColorClass} font-medium`}>
+          <span>Learn more</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      )}
+      
+      <div className={`mt-4 w-10 h-1 ${textColorClass.replace('text', 'bg')} rounded-full opacity-60 transition-all duration-300 group-hover:w-16`}></div>
+    </div>
+  );
+  
+  // Return clickable or non-clickable version based on link
+  return link === '#' ? (
     <div 
       ref={ref as React.RefObject<HTMLDivElement>}
       className={cn(
@@ -100,21 +151,23 @@ const FeatureCard = ({ title, description, icon: Icon, delay, color }: {
         background: `linear-gradient(135deg, var(--${baseColor}-50) 0%, var(--${baseColor}-100) 100%)`,
       }}
     >
-      <div className="tilt-content">
-        <div className={cn(
-          "w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110",
-          `bg-${baseColor}-100`,
-          textColorClass,
-          "shadow-md shadow-" + baseColor + "-200/50"
-        )}>
-          <Icon className="w-8 h-8" />
-        </div>
-        <h3 className={`text-xl font-bold mb-4 ${textColorClass}`}>{title}</h3>
-        <p className="text-foreground/80 leading-relaxed">{description}</p>
-        
-        <div className={`mt-6 w-10 h-1 ${textColorClass.replace('text', 'bg')} rounded-full opacity-60 transition-all duration-300 group-hover:w-16`}></div>
-      </div>
+      <CardContent />
     </div>
+  ) : (
+    <Link 
+      to={link}
+      ref={ref as React.RefObject<HTMLAnchorElement>}
+      className={cn(
+        "gradient-card group tilt-card p-8 transition-all duration-500 block",
+        isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'
+      )}
+      style={{ 
+        animationDelay: `${0.2 + delay}s`,
+        background: `linear-gradient(135deg, var(--${baseColor}-50) 0%, var(--${baseColor}-100) 100%)`,
+      }}
+    >
+      <CardContent />
+    </Link>
   );
 };
 
@@ -151,8 +204,11 @@ const StatItem = ({ label, value, prefix }: { label: string; value: string; pref
 const Features = () => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   
+  // Filter to show only featured programs by default
+  const featuredPrograms = features.filter(feature => feature.featured);
+  
   return (
-    <section id="features" className="py-28 bg-pattern relative overflow-hidden">
+    <section id="features" className="py-24 md:py-32 bg-pattern relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute -top-48 -left-48 w-96 h-96 rounded-full bg-primary/5 blur-3xl"></div>
       <div className="absolute -bottom-48 -right-48 w-96 h-96 rounded-full bg-secondary/5 blur-3xl"></div>
@@ -161,7 +217,7 @@ const Features = () => {
         <div 
           ref={ref as React.RefObject<HTMLDivElement>}
           className={cn(
-            "text-center max-w-3xl mx-auto mb-20",
+            "text-center max-w-2xl mx-auto mb-20",
             isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0'
           )}
         >
@@ -170,22 +226,40 @@ const Features = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            Our Services
+            Our Programs
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary/90 to-secondary/90 bg-clip-text text-transparent">
             Supporting Our Community
           </h2>
           
-          <p className="text-foreground/80 text-lg text-balance leading-relaxed">
+          <p className="text-foreground/80 text-lg leading-relaxed">
             We offer a comprehensive range of services designed to meet the diverse needs of our community members, 
-            with a focus on <span className="font-semibold text-foreground">dignity, respect, and empowerment</span>.
+            with a focus on dignity, respect, and empowerment.
           </p>
         </div>
         
-        {/* Statistics section */}
-        <div className="glass p-12 mb-20 rounded-3xl shadow-xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* Featured Programs */}
+        <div className="max-w-5xl mx-auto mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {featuredPrograms.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                title={feature.title}
+                description={feature.description}
+                icon={feature.icon}
+                delay={index * 0.1}
+                color={feature.color}
+                link={feature.link}
+                featured={feature.featured}
+              />
+            ))}
+          </div>
+        </div>
+        
+        {/* Statistics section - simplified */}
+        <div className="glass p-10 rounded-2xl shadow-md max-w-4xl mx-auto mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <StatItem
                 key={index}
@@ -197,29 +271,19 @@ const Features = () => {
           </div>
         </div>
         
-        {/* Features grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-animation">
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              {...feature}
-            />
-          ))}
-        </div>
-        
         {/* Call to action */}
-        <div className="mt-24 text-center max-w-3xl mx-auto glass p-10 rounded-3xl shadow-lg">
+        <div className="mt-16 text-center max-w-2xl mx-auto glass p-10 rounded-xl shadow-lg">
           <h3 className="text-2xl font-bold mb-4">Ready to make a difference?</h3>
-          <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto text-balance">
-            Join our community of volunteers and supporters to create positive change in the lives of those who need it most.
+          <p className="text-lg text-foreground/70 mb-6">
+            Join our community of volunteers and supporters to create positive change.
           </p>
-          <div className="flex flex-wrap justify-center gap-5">
-            <a href="#contact" className="button-primary min-w-[180px] py-4 text-base">
-              Contact Us
-            </a>
-            <a href="#" className="button-secondary min-w-[180px] py-4 text-base">
-              Volunteer
-            </a>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link to="/volunteer" className="button-primary py-3 text-base">
+              Volunteer With Us
+            </Link>
+            <Link to="/programs/bw-self" className="button-secondary py-3 text-base">
+              Explore Our Programs
+            </Link>
           </div>
         </div>
       </div>

@@ -1,0 +1,99 @@
+{
+  "gallery": [
+    {
+      "id": "gallery1",
+      "src": "/images/gallery1.jpg",
+      "alt": "Black women community members participating in a support group",
+      "caption": "Our BW-SELF support group in session"
+    },
+    {
+      "id": "gallery2",
+      "src": "/images/gallery2.jpg",
+      "alt": "HIV awareness workshop with community participants",
+      "caption": "Community workshop on HIV education and prevention"
+    },
+    {
+      "id": "gallery3",
+      "src": "/images/gallery3.jpg",
+      "alt": "Volunteer team at community outreach event",
+      "caption": "Our volunteer team working in the community"
+    },
+    {
+      "id": "gallery4",
+      "src": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=1000",
+      "alt": "Women empowerment workshop",
+      "caption": "Empowerment workshop for women in our community"
+    },
+    {
+      "id": "gallery5",
+      "src": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000",
+      "alt": "Professional woman in business attire",
+      "caption": "Professional development program participant"
+    },
+    {
+      "id": "gallery6",
+      "src": "https://images.unsplash.com/photo-1528205267650-9238f8e97df8?auto=format&fit=crop&q=80&w=1000",
+      "alt": "Community gathering with diverse participants",
+      "caption": "Our diverse community coming together"
+    }
+  ],
+  "programs": [
+    {
+      "id": "bw-self",
+      "title": "BW-SELF Advocacy",
+      "description": "Black Women Supporting Empowering Lifestyle Factors program designed to support women's health and wellness",
+      "src": "/images/bw-self-program.jpg",
+      "alt": "Black women participating in the BW-SELF program",
+      "icon": "Heart"
+    },
+    {
+      "id": "community-health",
+      "title": "Community Health Education",
+      "description": "Workshops and resources on HIV awareness, prevention, and health education",
+      "src": "/images/community-health.jpg",
+      "alt": "Community health education workshop",
+      "icon": "Stethoscope"
+    },
+    {
+      "id": "education",
+      "title": "Education Programs",
+      "description": "Educational resources, tutoring, and mentorship for children and adults in underserved communities",
+      "src": "/images/education-workshop.jpg",
+      "alt": "Education workshop with community participants",
+      "icon": "GraduationCap"
+    }
+  ],
+  "team": [
+    {
+      "id": "member1",
+      "name": "Juliet Jones",
+      "title": "Director of Risk Reduction",
+      "src": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150",
+      "alt": "Juliet Jones"
+    },
+    {
+      "id": "member2",
+      "name": "Mary Turner",
+      "title": "Community Developer",
+      "src": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=150",
+      "alt": "Mary Turner"
+    },
+    {
+      "id": "member3",
+      "name": "Laela Ademola",
+      "title": "Community Outreach",
+      "src": "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&q=80&w=150",
+      "alt": "Laela Ademola"
+    }
+  ],
+  "homepage": {
+    "hero": {
+      "src": "/images/community-support.jpg",
+      "alt": "Community support event with diverse participants"
+    },
+    "impact": {
+      "src": "/images/impact.jpg",
+      "alt": "Our community impact through various programs"
+    }
+  }
+} 

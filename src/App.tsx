@@ -1,5 +1,5 @@
 
-import React, { Suspense } from 'react'
+import React, { Suspense, lazy } from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom'
 import { Toaster } from '@/components/ui/sonner'
@@ -11,6 +11,12 @@ import { AuthProvider } from './context/AuthContext'
 import Auth from './pages/Auth'
 import AboutUs from './pages/AboutUs'
 import VolunteerPage from './pages/Volunteer'
+
+// Lazy-loaded pages for better performance
+const BWSELFProgram = lazy(() => import('./pages/programs/BWSELFProgram'))
+const WebinarSeries = lazy(() => import('./pages/programs/WebinarSeries'))
+const ResourceCenter = lazy(() => import('./pages/programs/ResourceCenter'))
+const BlogPage = lazy(() => import('./pages/Blog'))
 
 // Loading component for Suspense fallback
 const Loading = () => (
@@ -69,6 +75,38 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <Auth />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/programs/bw-self',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <BWSELFProgram />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/webinars',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <WebinarSeries />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/resources',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ResourceCenter />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/blog',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <BlogPage />
           </Suspense>
         ),
       },

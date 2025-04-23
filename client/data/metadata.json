@@ -1,0 +1,98 @@
+[
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    "localPath": "data/images/photo-1494790108377-be9c29b29330-041da6.jpg",
+    "altText": "Portrait of a smiling woman with red hair",
+    "sourcePage": "/about",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+    "localPath": "data/images/photo-1573497019940-1c28c88b4f3e-b4c747.jpg",
+    "altText": "Professional woman in business attire",
+    "sourcePage": "/about",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1531482615713-2afd69097998",
+    "localPath": "data/images/photo-1531482615713-2afd69097998-150d52.jpg",
+    "altText": "Team meeting in a modern office",
+    "sourcePage": "/about",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902",
+    "localPath": "data/images/photo-1521737711867-e3b97375f902-99a15b.jpg",
+    "altText": "Diverse team collaboration",
+    "sourcePage": "/programs",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978",
+    "localPath": "data/images/photo-1552664730-d307ca884978-156bf5.jpg",
+    "altText": "People working on laptops in a bright workspace",
+    "sourcePage": "/programs",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1590402494610-2c378a9114c6",
+    "localPath": "data/images/photo-1590402494610-2c378a9114c6-744674.jpg",
+    "altText": "Healthcare professional with clipboard",
+    "sourcePage": "/programs",
+    "type": "background-image",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1560252829-804f1aedf1be",
+    "localPath": "data/images/photo-1560252829-804f1aedf1be-266d6c.jpg",
+    "altText": "Donation and charity concept",
+    "sourcePage": "/donate",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6",
+    "localPath": "data/images/photo-1532629345422-7515f3d16bb6-ecfa8f.jpg",
+    "altText": "Volunteers packing donation boxes",
+    "sourcePage": "/donate",
+    "type": "background-image",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1559027615-cd4628902d4a",
+    "localPath": "data/images/photo-1559027615-cd4628902d4a-5b940f.jpg",
+    "altText": "Group of volunteers with raised hands",
+    "sourcePage": "/volunteer",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1593113646773-028c64a8f1b8",
+    "localPath": "data/images/photo-1593113646773-028c64a8f1b8-45f4f1.jpg",
+    "altText": "People working together on a community project",
+    "sourcePage": "/volunteer",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1577563908411-5077b6dc7624",
+    "localPath": "data/images/photo-1577563908411-5077b6dc7624-c1597f.jpg",
+    "altText": "Community outreach event",
+    "sourcePage": "/",
+    "type": "background-image",
+    "contentType": "image/jpeg"
+  },
+  {
+    "originalUrl": "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca",
+    "localPath": "data/images/photo-1582213782179-e0d53f98f2ca-4f69ec.jpg",
+    "altText": "Woman speaking at a podium",
+    "sourcePage": "/",
+    "type": "img-tag",
+    "contentType": "image/jpeg"
+  }
+]

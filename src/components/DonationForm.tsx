@@ -127,13 +127,13 @@ const DonationForm: React.FC<DonationFormProps> = ({ onSubmit }) => {
                     <Label>Payment Method</Label>
                     <RadioGroup defaultValue="credit_card" {...register('method')}>
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="credit_card" id="credit_card" />
-                          <Label htmlFor="credit_card">Credit Card</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="paypal" id="paypal" />
-                          <Label htmlFor="paypal">PayPal</Label>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="credit_card" id="credit_card" />
+                        <Label htmlFor="credit_card">Credit Card</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="paypal" id="paypal" />
+                        <Label htmlFor="paypal">PayPal</Label>
                         </div>
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="apple_pay" id="apple_pay" />
