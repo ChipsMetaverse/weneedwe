@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Features from '@/components/Features';
 import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import EventsList from '@/components/EventsList';
 import BlogPosts from '@/components/BlogPosts';
-import MediaGallery from '@/components/MediaGallery';
 
 const Index = () => {
   // Smooth scroll behavior for anchor links
@@ -41,7 +39,6 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow">
         <Hero />
-        <Features />
         
         {/* Events section with improved spacing and consistency */}
         <section className="py-20 bg-pattern" id="events">
@@ -61,28 +58,6 @@ const Index = () => {
             </div>
             <div className="glass p-8 rounded-2xl shadow-lg">
             <EventsList />
-            </div>
-          </div>
-        </section>
-        
-        {/* Media gallery with consistent spacing and styling */}
-        <section className="py-20 bg-background" id="media">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                <span className="relative flex h-2 w-2 mr-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                </span>
-                Visual Stories
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Our Gallery</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Explore moments that showcase our community's strength, resilience, and progress through visual stories.
-              </p>
-            </div>
-            <div className="gradient-card">
-            <MediaGallery />
             </div>
           </div>
         </section>
