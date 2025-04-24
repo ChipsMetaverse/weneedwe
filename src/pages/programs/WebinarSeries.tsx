@@ -246,7 +246,7 @@ const WebinarCard = ({ webinar }) => {
 
 const WebinarSeries = () => {
   const { ref, isVisible: inView } = useIntersectionObserver({
-    threshold: 0.2,
+    threshold: 0.1, // Lower threshold for easier triggering
     triggerOnce: true
   });
   
@@ -273,7 +273,7 @@ const WebinarSeries = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main>
-        {/* Hero Section */}
+        {/* HERO/INTRO: BW-SELF Mission & Outreach */}
         <section 
           className="relative py-24 bg-purple-50 overflow-hidden"
         >
@@ -288,9 +288,19 @@ const WebinarSeries = () => {
                 BW-SELF Webinar Series
               </div>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-purple-800">Our Power, Our Voice, Our Control!</h1>
-              <p className="text-xl text-purple-700/80">
-                A 12-part webinar series featuring Black women doctors and healthcare providers discussing crucial health topics and advocacy strategies.
+              <p className="text-xl text-purple-700/80 mb-4">
+                Our Risk Reduction Department and BW-SELF Health Ambassadors are reaching out to the community to reduce the number of new infections, and ultimately eradicate the HIV/AIDS epidemic through education, testing, and ongoing collaborations. We have recently enhanced our outreach tactics to a more community development approach, technically advanced via this Toolkit, and accessible for all 77 Communities, medical professionals, collaborators, and supporters.
               </p>
+              <p className="text-lg text-purple-700/70">
+                We now provide online webinars, viable information, and support through this website (weneedwe.org) and SheStories blog builders to keep in touch with all communities with just a click of a button. We are proud to say that we can now access the community at our fingertips and create a sense of awareness, through mass media systems, about HIV and how we can prevent the epidemic and #Getting2Zero infections.
+              </p>
+            </div>
+            {/* MEDIA ROW: Doctor, Woman, Hanging Out, Sketch */}
+            <div className="flex flex-wrap justify-center gap-8 mt-12">
+              <img src="https://weneedwe.org/x/cdn/?https://storage.googleapis.com/production-homestead-v1-0-9/959/596959/45J1cuOJ/e59392533d934e9096ccd4f1b309148f" alt="Black Woman Doctor" className="w-32 h-32 object-cover rounded-xl shadow-md mx-auto" />
+              <img src="https://weneedwe.org/x/cdn/?https://storage.googleapis.com/production-homestead-v1-0-9/959/596959/45J1cuOJ/add35a636f21418e970d4e251b8b92e5" alt="Empowered Black Woman" className="w-32 h-32 object-cover rounded-xl shadow-md mx-auto" />
+              <img src="https://weneedwe.org/x/cdn/?https://images.unsplash.com/photo-1611432580340-af48bd7549ed?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=200" alt="Women Hanging Out" className="w-32 h-32 object-cover rounded-xl shadow-md mx-auto" />
+              <img src="https://weneedwe.org/x/cdn/?https://storage.googleapis.com/production-homestead-v1-0-9/959/596959/45J1cuOJ/cb09ff9ed0df412c8d3aa13037045955" alt="Sketch" className="w-32 h-32 object-cover rounded-xl shadow-md mx-auto" />
             </div>
           </div>
         </section>
@@ -299,159 +309,100 @@ const WebinarSeries = () => {
         <section 
           ref={ref}
           className={`relative py-16 md:py-24 overflow-hidden transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            true /* Always visible in preview */ || inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
           <div className="container px-4 md:px-6 relative z-10">
-            {/* Series Overview */}
+            {/* OVERVIEW: Emphasize toolkit/cultural competency */}
             <div className="max-w-4xl mx-auto mb-16">
               <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100">
-                <h2 className="text-3xl font-bold mb-6 text-purple-800">Series Overview</h2>
-                <div className="prose prose-lg max-w-none">
-                  <p>
-                    The <strong>Our Power, Our Voice, Our Control!</strong> webinar series is a cornerstone of our BW-SELF Advocacy Program, designed to provide Black women with the knowledge and tools they need to advocate for their health effectively.
-                  </p>
-                  <p>
-                    Each session features expert Black women healthcare providers sharing their insights on critical health topics, practical advocacy strategies, and answering your questions in real-time.
-                  </p>
-                </div>
-                
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="bg-purple-100 p-2 rounded-full">
-                        <CheckCircle className="h-5 w-5 text-purple-600" />
+                <h2 className="text-3xl font-bold mb-6 text-purple-800">A Condom For Everyone</h2>
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  <div className="md:w-2/5 relative">
+                    <a href="https://youtu.be/7d6oqRB79ws" target="_blank" rel="noopener noreferrer" className="group block">
+                      <img src="https://img.youtube.com/vi/7d6oqRB79ws/hqdefault.jpg" alt="A Condom For Everyone" className="w-full rounded-lg shadow-md object-cover" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center">
+                          <Play className="h-6 w-6 text-white" />
+                        </div>
                       </div>
-                      <h3 className="font-bold text-lg text-purple-800">12 Sessions</h3>
-                    </div>
-                    <p className="text-purple-700">Comprehensive series covering essential health topics and advocacy skills</p>
+                    </a>
                   </div>
-                  
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="bg-purple-100 p-2 rounded-full">
-                        <Download className="h-5 w-5 text-purple-600" />
-                      </div>
-                      <h3 className="font-bold text-lg text-purple-800">Free Resources</h3>
+                  <div className="md:w-3/5">
+                    <div className="prose prose-lg max-w-none">
+                      <p className="mb-4">
+                        According to a study released 6/24/08 by PLoS Medicine, watching a video in an STD clinic waiting 
+                        room can reduce the risk for a new STD by almost 10%. In a large multi-center intervention trial, Dr. Lee 
+                        Warner from the Centers for Disease Control and Prevention and a team of researchers at different 
+                        institutions in the U.S. studied the effect of a carefully crafted, 23-minute waiting room video on the risk for 
+                        new STDs among 40,000 patients in 3 STD clinics in the country.
+                      </p>
+                      <p>
+                        More information about Safe in the City can be found at the project's website: 
+                        <a href="http://www.safeinthecity.org" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1">
+                          www.safeinthecity.org
+                        </a>.
+                      </p>
                     </div>
-                    <p className="text-purple-700">Downloadable materials and action plans for each session</p>
                   </div>
-                  
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="bg-purple-100 p-2 rounded-full">
-                        <Users className="h-5 w-5 text-purple-600" />
-                      </div>
-                      <h3 className="font-bold text-lg text-purple-800">Expert Presenters</h3>
-                    </div>
-                    <p className="text-purple-700">Sessions led by experienced Black women healthcare professionals</p>
-                  </div>
-                </div>
-                
-                <div className="mt-8 flex justify-center">
-                  <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
-                    Register for Upcoming Sessions
-                  </Button>
                 </div>
               </div>
             </div>
             
-            {/* Featured Webinars */}
+            {/* YOUTUBE/RESOURCE VIDEOS SECTION: Past Webinars & Resources */}
             <div className="max-w-6xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold mb-8 text-center">Featured Webinars</h2>
+              <h2 className="text-3xl font-bold mb-8 text-center">Webinars & Resources</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredWebinars.map(webinar => (
-                  <WebinarCard key={webinar.id} webinar={webinar} />
-                ))}
+                {/* YouTube Webinars */}
+                <a href="https://youtu.be/bsY5Vl-NXhU" target="_blank" rel="noopener noreferrer" className="group block bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
+                  <img src="https://img.youtube.com/vi/bsY5Vl-NXhU/hqdefault.jpg" alt="How to Leverage Your Entrepreneurial Spirit During The Pandemic" className="w-full h-48 object-cover group-hover:brightness-90" />
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg">How to Leverage Your Entrepreneurial Spirit During The Pandemic</h3>
+                  </div>
+                </a>
+                <a href="https://youtu.be/woyoq9FQ0rg" target="_blank" rel="noopener noreferrer" className="group block bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
+                  <img src="https://img.youtube.com/vi/woyoq9FQ0rg/hqdefault.jpg" alt="Women's Mood And Anxiety Disorder Across Reproductive Life Cycle" className="w-full h-48 object-cover group-hover:brightness-90" />
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg">Women's Mood And Anxiety Disorder Across Reproductive Life Cycle</h3>
+                  </div>
+                </a>
+                <a href="https://youtu.be/CoIuR4pn9H0" target="_blank" rel="noopener noreferrer" className="group block bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
+                  <img src="https://img.youtube.com/vi/CoIuR4pn9H0/hqdefault.jpg" alt="GETTING YOUR GROVE BACK" className="w-full h-48 object-cover group-hover:brightness-90" />
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg">GETTING YOUR GROVE BACK</h3>
+                  </div>
+                </a>
+                <a href="https://youtu.be/e3S8IjAVu54" target="_blank" rel="noopener noreferrer" className="group block bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
+                  <img src="https://img.youtube.com/vi/e3S8IjAVu54/hqdefault.jpg" alt="DISPARITIES IN HEALTHCARE VACCINATIONS AND HIV" className="w-full h-48 object-cover group-hover:brightness-90" />
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg">DISPARITIES IN HEALTHCARE VACCINATIONS AND HIV</h3>
+                  </div>
+                </a>
               </div>
             </div>
             
-            {/* All Webinars with Tabs */}
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 text-center">All Webinars</h2>
-              
-              <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-                <div className="relative w-full md:w-96">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input
-                    type="text"
-                    placeholder="Search webinars..."
-                    className="pl-10"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <Filter className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-500">Filter by:</span>
-                  <Badge variant="outline" className="cursor-pointer hover:bg-purple-50">
-                    Topic
-                  </Badge>
-                  <Badge variant="outline" className="cursor-pointer hover:bg-purple-50">
-                    Presenter
-                  </Badge>
-                  <Badge variant="outline" className="cursor-pointer hover:bg-purple-50">
-                    Date
-                  </Badge>
-                </div>
-              </div>
-              
-              <Tabs defaultValue="upcoming" className="w-full" onValueChange={setActiveTab}>
-                <TabsList className="grid w-full md:w-96 grid-cols-2 mb-8">
-                  <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-                  <TabsTrigger value="past">Past Webinars</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="upcoming">
-                  {filteredUpcoming.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {filteredUpcoming.map(webinar => (
-                        <WebinarCard key={webinar.id} webinar={webinar} />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-12">
-                      <p className="text-lg text-gray-500">No upcoming webinars found matching your search.</p>
-                    </div>
-                  )}
-                </TabsContent>
-                
-                <TabsContent value="past">
-                  {filteredPast.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {filteredPast.map(webinar => (
-                        <WebinarCard key={webinar.id} webinar={webinar} />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-12">
-                      <p className="text-lg text-gray-500">No past webinars found matching your search.</p>
-                    </div>
-                  )}
-                </TabsContent>
-              </Tabs>
-            </div>
-            
-            {/* Call to Action */}
-            <div className="max-w-4xl mx-auto mt-20">
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-8 border border-purple-100 shadow-md">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-purple-800 mb-4">Join Our Community of Health Advocates</h2>
-                  <p className="text-lg text-purple-700/80 max-w-2xl mx-auto">
-                    Register for our webinar series and gain access to exclusive resources, support networks, and expert guidance.
-                  </p>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
-                    Register Now
-                  </Button>
-                  <Link to="/programs/bw-self">
-                    <Button size="lg" variant="outline" className="border-purple-600 text-purple-600 hover:bg-purple-50">
-                      Learn About BW-SELF Program
-                    </Button>
-                  </Link>
+            {/* Useful Links & Contact Info */}
+            <div className="max-w-4xl mx-auto mt-16 mb-24">
+              <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-md">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2 text-red-600">Useful Links & Resources</h3>
+                    <ul className="list-disc ml-6 mb-4">
+                      <li><a href="https://ufcinc.org/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-red-600">Universal Family Connection</a></li>
+                      <li><a href="https://dph.illinois.gov/topics-services/diseases-and-conditions/hiv-aids/basuah.html" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-red-600">BASUAH</a></li>
+                      <li><a href="https://www.aidschicago.org/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-red-600">AIDS Foundation of Chicago</a></li>
+                      <li><a href="https://www.chicago.gov/city/en/depts/cdph.html" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-red-600">CDPH</a></li>
+                      <li><a href="https://www.prep4blackwomen.org/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-red-600">PrEP4Black Women</a></li>
+                      <li><a href="https://www.advocatesforyouth.org/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-red-600">Advocates for Youths</a></li>
+                      <li><a href="https://www.safeinthecity.org/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-red-600">Safe in the City (CDC Project)</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2 text-red-600">Contact Information</h4>
+                    <p>Email: <a href="mailto:jmjones@ufcinc.org" className="text-red-600 hover:underline">jmjones@ufcinc.org</a></p>
+                    <p>Telephone: <a href="tel:773-881-1711" className="text-red-600 hover:underline">(773) 881-1711</a></p>
+                    <p className="text-gray-800">Fax: (773) 881-3379</p>
+                  </div>
                 </div>
               </div>
             </div>

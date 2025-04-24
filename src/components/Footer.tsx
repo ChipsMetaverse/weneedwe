@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Mail, Phone, MapPin, ChevronRight, Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { Heart, Mail, Phone, Printer, ChevronRight, Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,31 +13,13 @@ const Footer = () => {
     { name: 'YouTube', icon: Youtube, url: '#youtube' },
   ];
   
-  // Quick links
-  const quickLinks = [
-    { name: 'Home', url: '#home' },
-    { name: 'Services', url: '#about' },
-    { name: 'Gallery', url: '#gallery' },
-    { name: 'Donate', url: '#donate' },
-    { name: 'Contact', url: '#contact' },
-  ];
-  
-  // Services links - updated with weneedwe.org services
-  const serviceLinks = [
+  // Site Map links
+  const siteMapLinks = [
+    { name: 'About', url: '/about-us' },
     { name: 'BW-SELF Advocacy', url: '#bw-self-advocacy' },
-    { name: 'HIV Support Services', url: '#hiv-support' },
-    { name: 'Youth Empowerment', url: '#youth-empowerment' },
-    { name: 'Health Education', url: '#health-education' },
-    { name: 'Education Programs', url: '#education-programs' },
-  ];
-  
-  // Get involved links
-  const involvedLinks = [
-    { name: 'Volunteer', url: '#volunteer' },
+    { name: 'Just The Facts', url: '#just-the-facts' },
+    { name: 'Webinars', url: '#webinars' },
     { name: 'Donate', url: '#donate' },
-    { name: 'Fundraise', url: '#fundraise' },
-    { name: 'Partner With Us', url: '#partner' },
-    { name: 'Corporate Giving', url: '#corporate' },
   ];
   
   return (
@@ -48,7 +30,7 @@ const Footer = () => {
           {/* Organization Info */}
           <div className="lg:col-span-4">
             <a 
-              href="#home" 
+              href="/" 
               className="inline-flex items-center text-xl font-display font-medium tracking-tight mb-6"
             >
               <span className="text-primary mr-1">
@@ -57,34 +39,33 @@ const Footer = () => {
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">WeNeedWe</span>
             </a>
             <p className="text-muted-foreground mb-6 text-balance">
-              WeNeedWe is dedicated to empowering individuals and families through comprehensive support services, education, and advocacy. We strive to create a community where everyone has the resources and opportunities they need to thrive.
+              Follow us on social media for all our latest news, updates and event information.
             </p>
             
             <div className="space-y-3 mb-6">
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-primary mr-3" />
                 <a 
-                  href="mailto:contact@weneedwe.org"
+                  href="mailto:jmjones@ufcinc.org"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  contact@weneedwe.org
+                  jmjones@ufcinc.org
                 </a>
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 text-primary mr-3" />
                 <a 
-                  href="tel:+15551234567"
+                  href="tel:+17738811711"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  +1 (555) 123-4567
+                  (773) 881-1711
                 </a>
               </div>
-              <div className="flex items-start">
-                <MapPin className="w-5 h-5 text-primary mr-3 mt-0.5" />
-                <address className="text-muted-foreground not-italic">
-                  123 Community Avenue<br />
-                  Chicago, IL 60601
-                </address>
+              <div className="flex items-center">
+                <Printer className="w-5 h-5 text-primary mr-3" />
+                <span className="text-muted-foreground">
+                  Fax: (773) 881-3379
+                </span>
               </div>
             </div>
             
@@ -102,128 +83,71 @@ const Footer = () => {
             </div>
           </div>
           
-          {/* Quick Links */}
+          {/* Site Map */}
           <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              {quickLinks.map((item) => (
-                <li key={item.name}>
+            <h3 className="font-medium text-lg mb-4">Site Map</h3>
+            <ul className="space-y-2">
+              {siteMapLinks.map((link) => (
+                <li key={link.name}>
                   <a
-                    href={item.url}
+                    href={link.url}
                     className="text-muted-foreground hover:text-primary transition-colors flex items-center"
                   >
-                    <ChevronRight className="w-4 h-4 mr-1" />
-                    {item.name}
+                    <ChevronRight className="w-3 h-3 mr-2" />
+                    {link.name}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
           
-          {/* Services */}
-          <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-6">Our Services</h3>
-            <ul className="space-y-3">
-              {serviceLinks.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.url}
-                    className="text-muted-foreground hover:text-primary transition-colors flex items-center"
-                  >
-                    <ChevronRight className="w-4 h-4 mr-1" />
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Get Involved */}
-          <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-6">Get Involved</h3>
-            <ul className="space-y-3">
-              {involvedLinks.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.url}
-                    className="text-muted-foreground hover:text-primary transition-colors flex items-center"
-                  >
-                    <ChevronRight className="w-4 h-4 mr-1" />
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Newsletter */}
-          <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-6">Stay Updated</h3>
-            <p className="text-muted-foreground mb-4">
-              Join our newsletter for updates on events, volunteer opportunities, and ways to help.
-            </p>
-            <form className="space-y-3">
+          {/* Contact Form */}
+          <div className="lg:col-span-6">
+            <h3 className="font-medium text-lg mb-4">Contact us</h3>
+            <form className="space-y-4">
               <div>
+                <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">
+                  Full name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-muted-foreground mb-1">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">
+                  Email
+                </label>
                 <input
                   type="email"
-                  placeholder="Your email address"
-                  className="w-full px-4 py-2.5 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
-                  required
-                  aria-label="Email for newsletter"
+                  id="email"
+                  className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground px-4 py-2.5 rounded-lg font-medium transition-all hover:bg-primary/90"
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
               >
-                Subscribe
+                Submit
               </button>
-              <p className="text-xs text-muted-foreground">
-                We respect your privacy. Unsubscribe at any time.
-              </p>
             </form>
           </div>
         </div>
         
-        {/* Donation CTA */}
-        <div className="mt-16 mb-12 glass rounded-2xl p-8 lg:p-10 border border-primary/10">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-            <div className="lg:col-span-2">
-              <h3 className="text-2xl font-bold mb-3">Make a Difference Today</h3>
-              <p className="text-foreground/70 mb-6 lg:mb-0">
-                Your contribution helps us continue our mission of supporting communities in need.
-                Every donation, no matter how small, makes a significant impact.
-              </p>
-            </div>
-            <div className="flex justify-center lg:justify-end">
-              <a
-                href="#donate"
-                className="button-primary px-8 py-3 inline-flex items-center"
-              >
-                <Heart className="w-5 h-5 mr-2" />
-                Donate Now
-              </a>
-            </div>
-          </div>
-        </div>
-        
         {/* Footer bottom */}
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground text-center md:text-left mb-4 md:mb-0">
-            © {currentYear} WeNeedWe. A 501(c)(3) nonprofit organization. All rights reserved.
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Accessibility', 'Contact'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                {item}
-              </a>
-            ))}
-          </div>
+        <div className="mt-16 pt-8 border-t border-border text-center text-sm text-muted-foreground">
+          <p> {currentYear} WeNeedWe. All rights reserved.</p>
         </div>
       </div>
     </footer>

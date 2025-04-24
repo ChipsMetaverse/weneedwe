@@ -1,4 +1,3 @@
-
 import React, { Suspense, lazy } from 'react'
 import './App.css'
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom'
@@ -11,6 +10,7 @@ import { AuthProvider } from './context/AuthContext'
 import Auth from './pages/Auth'
 import AboutUs from './pages/AboutUs'
 import VolunteerPage from './pages/Volunteer'
+import Events from './pages/Events'
 
 // Lazy-loaded pages for better performance
 const BWSELFProgram = lazy(() => import('./pages/programs/BWSELFProgram'))
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         path: '/',
         element: (
           <Suspense fallback={<Loading />}>
-            <Index />
+            <AboutUs />
           </Suspense>
         ),
       },
@@ -107,6 +107,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <BlogPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/events',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Events />
           </Suspense>
         ),
       },
