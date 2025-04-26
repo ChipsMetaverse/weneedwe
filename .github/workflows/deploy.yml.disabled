@@ -1,9 +1,10 @@
+# DISABLED - Using Vercel instead of GitHub Pages
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main-disabled  # Changed from main to main-disabled to prevent triggering
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
