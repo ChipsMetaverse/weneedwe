@@ -232,7 +232,7 @@ const Index = () => {
               </p>
             </div>
             <div className="glass p-8 rounded-2xl shadow-lg">
-              <EventsList />
+            <EventsList />
               
               {/* Consumer Advisory Board - Weekly Support Group */}
               <div className="mt-10 pt-10 border-t border-gray-200">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Layout from '../components/Layout';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const WEBINAR_YOUTUBE_URL = 'http://www.youtube.com/BW-SELFUFC';
 const LIGHTS_CAMERA_URL = 'http://www.youtube.com/user/LightsCameraSurvive';
@@ -19,7 +20,8 @@ const usefulLinks = [
 
 export default function WebinarSeries() {
   return (
-    <Layout>
+    <div>
+      <Navbar />
       <section className="py-12 bg-pink-50 border-b border-pink-100">
         <div className="container mx-auto px-4 flex flex-col md:flex-row gap-8 items-center">
           <img src={DOCTOR_PHOTO_URL} alt="Black Woman Doctor" className="w-48 h-48 object-cover rounded-xl shadow-md mb-6 md:mb-0" />
@@ -72,6 +74,7 @@ export default function WebinarSeries() {
           </div>
         </div>
       </section>
-    </Layout>
+      <Footer />
+    </div>
   );
 }
