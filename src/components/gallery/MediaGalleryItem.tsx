@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { cn } from '@/lib/utils';
@@ -29,7 +28,9 @@ const MediaGalleryItem: React.FC<MediaItemProps> = ({
   
   // Use a valid placeholder image in case the main image fails to load
   const placeholderImage = "/placeholder.svg";
-  const imageUrl = item.url && item.url !== "null" ? item.url : placeholderImage;
+  const [imageUrl, setImageUrl] = useState(item.url && item.url !== "null" ? item.url : placeholderImage);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 2;
   
   return (
     <div 
@@ -53,8 +54,21 @@ const MediaGalleryItem: React.FC<MediaItemProps> = ({
               onError={(e) => {
                 // Fallback for image loading errors
                 const target = e.target as HTMLImageElement;
-                target.src = placeholderImage;
-                console.log("Image failed to load, using placeholder:", item.url);
+                
+                if (retryCount < maxRetries && imageUrl !== placeholderImage) {
+                  // Try a different approach to get the image first
+                  const newUrl = item.url?.includes('?') 
+                    ? `${item.url}&timestamp=${Date.now()}` 
+                    : `${item.url}?timestamp=${Date.now()}`;
+                  
+                  console.log(`Retrying image load (${retryCount + 1}/${maxRetries}):`, newUrl);
+                  setImageUrl(newUrl);
+                  setRetryCount(prev => prev + 1);
+                } else {
+                  // If we've exceeded retries or already using placeholder, use the fallback
+                  console.log("Image failed to load after retries, using placeholder:", item.url);
+                  setImageUrl(placeholderImage);
+                }
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
