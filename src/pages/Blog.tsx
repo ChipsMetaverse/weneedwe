@@ -342,10 +342,6 @@ const Blog = () => {
                     <h3 className="text-xl font-bold mb-2">Black Women and HIV</h3>
                     <p className="text-gray-700 mb-4">Understanding the specific challenges and disparities facing Black women in HIV prevention, treatment, and care.</p>
                     <div className="flex items-center text-sm text-gray-500">
-                      <span className="flex items-center mr-4">
-                        <User className="h-4 w-4 mr-1" />
-                        Michelle Davis
-                      </span>
                       <span className="flex items-center">
                         <Clock className="h-4 w-4 mr-1" />
                         6 min
@@ -371,10 +367,6 @@ const Blog = () => {
                       For persons newly diagnosed with HIV, ensuring rapid linkage to care and starting antiretroviral therapy, ideally within 7 days, is a key pillar of the national initiative, Ending the HIV Epidemic: A Plan for America.
                     </p>
                     <div className="flex items-center text-sm text-gray-500 mb-4">
-                      <span className="flex items-center mr-4">
-                        <User className="h-4 w-4 mr-1" />
-                        Dr. Maya Johnson
-                      </span>
                       <span className="flex items-center">
                         <Clock className="h-4 w-4 mr-1" />
                         7 min read
