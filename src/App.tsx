@@ -17,6 +17,7 @@ const BWSELFProgram = lazy(() => import('./pages/programs/BWSELFProgram'))
 const WebinarSeries = lazy(() => import('./pages/programs/WebinarSeries'))
 const ResourceCenter = lazy(() => import('./pages/programs/ResourceCenter'))
 const BlogPage = lazy(() => import('./pages/Blog'))
+const LinkageToHIVMedicalPlan = lazy(() => import('./pages/blog/LinkageToHIVMedicalPlan'))
 
 // Loading component for Suspense fallback
 const Loading = () => (
@@ -107,6 +108,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <BlogPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/blog/linkage-to-hiv-medical-plan',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LinkageToHIVMedicalPlan />
           </Suspense>
         ),
       },

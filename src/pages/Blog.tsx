@@ -34,22 +34,33 @@ const blogPosts = [
     date: "September 10, 2023",
     readTime: "5 min read",
     category: "personal-story",
-    image: "/placeholder.svg",
+    image: "/images/ForBlackWomenandHIVarticle.jpg",
     featured: true
   },
   {
     id: 2,
-    title: "Understanding Black Maternal Health Disparities",
-    excerpt: "An exploration of the systemic issues contributing to maternal health disparities and steps toward change.",
-    author: "Dr. Jasmine Roberts",
-    date: "August 28, 2023",
-    readTime: "8 min read",
+    title: "PrEP 4 Women",
+    excerpt: "This page is fully devoted to HIV prevention and provides the assurance that HIV is controllable. Specially devoted to Black women diagnosed with HIV who remain strong and stand for themselves.",
+    author: "Dr. Maya Johnson",
+    date: "October 15, 2023",
+    readTime: "7 min read",
     category: "health-education",
-    image: "/placeholder.svg",
+    image: "/images/PrEP 4 Women.jpg",
     featured: true
   },
   {
     id: 3,
+    title: "Black Women and HIV",
+    excerpt: "Understanding the specific challenges and disparities facing Black women in HIV prevention, treatment, and care.",
+    author: "Michelle Davis",
+    date: "November 5, 2023",
+    readTime: "6 min read",
+    category: "health-education",
+    image: "/images/BlackWomenandHivArticle.jpg",
+    featured: true
+  },
+  {
+    id: 4,
     title: "Self-Advocacy Tips for Medical Appointments",
     excerpt: "Practical strategies for effectively communicating with healthcare providers and ensuring your concerns are addressed.",
     author: "Michelle Johnson",
@@ -60,7 +71,7 @@ const blogPosts = [
     featured: false
   },
   {
-    id: 4,
+    id: 5,
     title: "Finding Community in Health Challenges",
     excerpt: "How connecting with others facing similar health issues can provide support, resources, and empowerment.",
     author: "Keisha Thomas",
@@ -71,7 +82,7 @@ const blogPosts = [
     featured: false
   },
   {
-    id: 5,
+    id: 6,
     title: "Mental Health Self-Care Practices",
     excerpt: "Essential self-care practices for maintaining mental wellbeing, especially during health challenges.",
     author: "Dr. Nicole Harris",
@@ -82,7 +93,7 @@ const blogPosts = [
     featured: true
   },
   {
-    id: 6,
+    id: 7,
     title: "Navigating Insurance Denials",
     excerpt: "A step-by-step guide to understanding and appealing insurance claim denials.",
     author: "Patricia Davis",
@@ -93,7 +104,7 @@ const blogPosts = [
     featured: false
   },
   {
-    id: 7,
+    id: 8,
     title: "My Experience as a BW-SELF Program Participant",
     excerpt: "A reflection on participating in the BW-SELF program and how it changed my approach to healthcare.",
     author: "Danielle Robinson",
@@ -104,7 +115,7 @@ const blogPosts = [
     featured: false
   },
   {
-    id: 8,
+    id: 9,
     title: "Advocating for a Family Member",
     excerpt: "Strategies and insights for effectively advocating for the healthcare needs of a loved one.",
     author: "Angela Turner",
@@ -236,9 +247,14 @@ const Blog = () => {
       <main>
         {/* Hero Section */}
         <section 
-          className="relative py-24 bg-red-50 overflow-hidden"
+          className="relative py-24 overflow-hidden"
+          style={{
+            backgroundImage: "url('/images/OurPowerOurVoiceOurControl.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+          }}
         >
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-100/50 rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/3"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
           <div className="container px-4 md:px-6 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-100 text-red-700 text-sm font-medium mb-4">
@@ -248,8 +264,8 @@ const Blog = () => {
                 </span>
                 Stories & Insights
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-red-800">She/Stories Blog</h1>
-              <p className="text-xl text-red-700/80">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-white">SheStories Blog</h1>
+              <p className="text-xl text-white">
                 Personal stories, insights, and educational content by and for Black women navigating health and wellness.
               </p>
             </div>
@@ -264,112 +280,131 @@ const Blog = () => {
           }`}
         >
           <div className="container px-4 md:px-6 relative z-10">
-            {/* Featured Posts */}
+            {/* OUR POWER, OUR VOICE, OUR CONTROL! Banner */}
+            <div className="max-w-6xl mx-auto mb-16 text-center">
+              <div className="flex flex-col items-center justify-center mb-8">
+                <h2 className="text-3xl font-bold">
+                  <span className="text-black">OUR POWER, </span>
+                  <span className="text-green-600">OUR VOICE, </span>
+                  <span className="text-red-600">OUR CONTROL!</span>
+                </h2>
+              </div>
+            </div>
+            
+            {/* PrEP 4 Women Featured Section */}
             <div className="max-w-6xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold mb-8 text-center">Featured Stories</h2>
-              <div className="grid gap-8">
-                {featuredPosts.slice(0, 2).map(post => (
-                  <BlogPostCard key={post.id} post={post} featured={true} />
-                ))}
+              <Card className="overflow-hidden">
+                <div className="bg-cyan-400 p-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="order-2 md:order-1 flex flex-col items-start justify-center text-left">
+                      <CardDescription className="text-black text-lg font-medium mb-5">
+                        The PrEP In Black America Coalition addresses systemic barriers preventing Black communities from accessing HIV prevention tools. Through summits, webinars, and advocacy, we're working to make PrEP accessible to all who need it.
+                      </CardDescription>
+                      <div className="mt-3">
+                        <a href="https://prep4all.org/prepinblackamerica" target="_blank" rel="noopener noreferrer">
+                          <Button className="bg-red-600 hover:bg-red-700 text-lg">
+                            Learn More About PrEP
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="order-1 md:order-2">
+                      <img 
+                        src="/images/PrEP4Women.jpeg" 
+                        alt="PrEP 4 Women" 
+                        className="w-full h-auto rounded-lg shadow-lg"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+            
+            {/* Featured Videos */}
+            <div className="max-w-6xl mx-auto mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <div className="aspect-video bg-gray-200 relative">
+                    <img 
+                      src="/images/BlackWomenandHivArticle.jpg" 
+                      alt="Black Women and HIV"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center cursor-pointer">
+                        <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">Black Women and HIV</h3>
+                    <p className="text-gray-700 mb-4">Understanding the specific challenges and disparities facing Black women in HIV prevention, treatment, and care.</p>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <span className="flex items-center mr-4">
+                        <User className="h-4 w-4 mr-1" />
+                        Michelle Davis
+                      </span>
+                      <span className="flex items-center">
+                        <Clock className="h-4 w-4 mr-1" />
+                        6 min
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <div className="aspect-video bg-gray-200 relative">
+                    <img 
+                      src="/images/ribbon.jpeg" 
+                      alt="HIV Awareness Ribbon"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">Linkage to HIV Medical Plan</h3>
+                    <p className="text-gray-700 mb-4">
+                      Linkage to care is the first step in engaging in HIV care and is typically defined as the completion of a first medical clinic visit within 30 days after an HIV diagnosis.
+                    </p>
+                    <p className="text-gray-700 mb-4">
+                      For persons newly diagnosed with HIV, ensuring rapid linkage to care and starting antiretroviral therapy, ideally within 7 days, is a key pillar of the national initiative, Ending the HIV Epidemic: A Plan for America.
+                    </p>
+                    <div className="flex items-center text-sm text-gray-500 mb-4">
+                      <span className="flex items-center mr-4">
+                        <User className="h-4 w-4 mr-1" />
+                        Dr. Maya Johnson
+                      </span>
+                      <span className="flex items-center">
+                        <Clock className="h-4 w-4 mr-1" />
+                        7 min read
+                      </span>
+                    </div>
+                    <a 
+                      href="/blog/linkage-to-hiv-medical-plan" 
+                      className="inline-block"
+                    >
+                      <Button className="bg-red-600 hover:bg-red-700">
+                        Read Full Article
+                      </Button>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
             
-            {/* All Blog Posts */}
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 text-center">Explore All Stories</h2>
-              
-              <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-                <div className="relative w-full md:w-96">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input
-                    type="text"
-                    placeholder="Search stories..."
-                    className="pl-10"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
-                
-                <div className="flex items-center flex-wrap gap-2">
-                  <Filter className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-500">Categories:</span>
-                  <Badge 
-                    variant={activeCategory === 'all' ? "default" : "outline"} 
-                    className={activeCategory === 'all' ? "bg-red-600" : "cursor-pointer hover:bg-red-50"}
-                    onClick={() => setActiveCategory('all')}
-                  >
-                    All
-                  </Badge>
-                  <Badge 
-                    variant={activeCategory === 'personal-story' ? "default" : "outline"} 
-                    className={activeCategory === 'personal-story' ? "bg-red-600" : "cursor-pointer hover:bg-red-50"}
-                    onClick={() => setActiveCategory('personal-story')}
-                  >
-                    Personal Stories
-                  </Badge>
-                  <Badge 
-                    variant={activeCategory === 'health-education' ? "default" : "outline"} 
-                    className={activeCategory === 'health-education' ? "bg-red-600" : "cursor-pointer hover:bg-red-50"}
-                    onClick={() => setActiveCategory('health-education')}
-                  >
-                    Health Education
-                  </Badge>
-                  <Badge 
-                    variant={activeCategory === 'tips' ? "default" : "outline"} 
-                    className={activeCategory === 'tips' ? "bg-red-600" : "cursor-pointer hover:bg-red-50"}
-                    onClick={() => setActiveCategory('tips')}
-                  >
-                    Tips
-                  </Badge>
-                  <Badge 
-                    variant={activeCategory === 'mental-health' ? "default" : "outline"} 
-                    className={activeCategory === 'mental-health' ? "bg-red-600" : "cursor-pointer hover:bg-red-50"}
-                    onClick={() => setActiveCategory('mental-health')}
-                  >
-                    Mental Health
-                  </Badge>
-                </div>
-              </div>
-              
-              {filteredPosts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {filteredPosts.map(post => (
-                    <BlogPostCard key={post.id} post={post} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-lg text-gray-500">No stories found matching your search.</p>
-                </div>
-              )}
-              
-              {filteredPosts.length > 0 && (
-                <div className="mt-12 text-center">
-                  <Button variant="outline" size="lg" className="border-red-600 text-red-600 hover:bg-red-50">
-                    Load More Stories
-                  </Button>
-                </div>
-              )}
-            </div>
-            
-            {/* Share Your Story */}
-            <div className="max-w-4xl mx-auto mt-20">
-              <div className="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-8 border border-red-100 shadow-md">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-red-800 mb-4">Share Your Story</h2>
-                  <p className="text-lg text-red-700/80 max-w-2xl mx-auto">
-                    Your experience matters. Share your health journey, insights, or advocacy tips to inspire and help others in our community.
-                  </p>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-red-600 hover:bg-red-700">
-                    Submit Your Story
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-50">
-                    Learn Submission Guidelines
-                  </Button>
-                </div>
+            {/* YouTube Video Section */}
+            <div className="max-w-6xl mx-auto mb-16">
+              <h2 className="text-3xl font-bold mb-8 text-center">COVID-19 Death Rate among Blacks</h2>
+              <div className="aspect-video w-full">
+                <iframe 
+                  src="https://www.youtube.com/embed/_qo02qR-cNQ" 
+                  title="Black Women and HIV" 
+                  className="w-full h-full rounded-lg shadow-lg"
+                  allowFullScreen
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                ></iframe>
               </div>
             </div>
             
@@ -377,7 +412,7 @@ const Blog = () => {
             <div className="max-w-4xl mx-auto mt-16 text-center">
               <h2 className="text-2xl font-bold mb-4">Stay Connected</h2>
               <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Subscribe to our newsletter to receive the latest stories, resources, and event updates.
+                Subscribe to our newsletter to receive the latest stories, videos, and resource updates.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Input 

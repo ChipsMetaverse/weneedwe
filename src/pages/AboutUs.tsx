@@ -17,7 +17,18 @@ const AboutUs = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
+      {/* HIV Banner */}
+      <section className="relative w-full overflow-hidden">
+        <div className="h-[400px] w-full relative">
+          <img 
+            src="/images/HivResourcesBanner.jpg"
+            alt="Black woman holding HIV awareness card"
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+      </section>
+      
+      {/* Hero Section with HIV Banner and Parallax Effect */}
       <section className="relative w-full py-20 overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5">
         <div className="container px-4 mx-auto">
           <div className="grid items-center grid-cols-1 gap-12 md:grid-cols-2">
@@ -249,25 +260,8 @@ const AboutUs = () => {
               </p>
             </div>
             
-            {/* Team Images Row 2 */}
-            <div className="border-2 border-white/20 rounded-lg overflow-hidden mb-4">
-              <img 
-                src="https://weneedwe.org/x/cdn/?https://storage.googleapis.com/production-homestead-v1-0-9/959/596959/uORzTRGP/d06dc53ea0664de499cfa0a8e35dc5d8" 
-                alt="BW-SELF Workgroup" 
-                className="w-full h-auto"
-              />
-            </div>
+            {/* Navigation buttons removed - they were non-functional */}
             
-            <div className="text-center mt-4">
-              <div className="flex justify-center gap-4">
-                <button className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white">
-                  <span>←</span>
-                </button>
-                <button className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white">
-                  <span>→</span>
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </section>
