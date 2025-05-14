@@ -24,8 +24,8 @@ const resources = [
     title: "BW-Self Webinars",
     description: "Our webinar series",
     category: "education",
-    type: "external",
-    url: "/programs/webinar-series",
+    type: "internal",
+    url: "/webinars",
     image: "https://weneedwe.org/x/cdn/?https://storage.googleapis.com/production-homestead-v1-0-9/959/596959/45J1cuOJ/661cd420a4e8488783aa8c5347ad881a"
   },
   {
@@ -43,7 +43,7 @@ const resources = [
     description: "People living with HIV can lead long and healthy lives by taking medicines that control the virus",
     category: "education",
     type: "external",
-    url: "https://www.cdc.gov/hiv/risk/art/index.html",
+    url: "https://www.youtube.com/watch?v=keG71hZuuIo",
     image: "https://weneedwe.org/x/cdn/?https://storage.googleapis.com/production-homestead-v1-0-9/959/596959/45J1cuOJ/6c6e2ab04fbf43dbb990011ebdb387af"
   },
   {

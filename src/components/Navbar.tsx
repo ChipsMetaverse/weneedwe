@@ -13,6 +13,9 @@ import {
   Award,
   Info,
   Calendar,
+  FileText,
+  User,
+  MapPin
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -113,11 +116,7 @@ const ProgramDropdown = () => (
       </NavLink>
       <NavLink to="/resources" className="menu-item flex items-center gap-2">
         <Info className="h-4 w-4 text-primary" /> Resource Center
-      </NavLink>
-      <NavLink to="/events" className="menu-item flex items-center gap-2">
-        <Calendar className="h-4 w-4 text-primary" /> Events
-      </NavLink>
-    </div>
+      </NavLink>    </div>
   </div>
 );
 
@@ -166,12 +165,12 @@ const Navbar = () => {
           <NavItem to="/about-us">About Us</NavItem>
           <ProgramDropdown />
           <NavItem to="/blog">Blog</NavItem>
-          <div className="hiv-awareness-badge flex items-center gap-1">
+          <NavLink to="/just-the-facts" className="hiv-awareness-badge flex items-center gap-1 hover:opacity-80 transition-opacity">
             <span className="hiv-ribbon-container">
               <span className="hiv-ribbon scale-[0.3]" />
             </span>
-            <span>HIV Awareness</span>
-          </div>
+            <span>Just The Facts</span>
+          </NavLink>
           <NavItem to="/contact">Contact</NavItem>
         </nav>
 
@@ -186,19 +185,19 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent className="w-[80vw] max-w-sm">
               <MobileHIVInfo />
-              <MobileNavItem to="/about-us" label="About Us" onClick={() => setMenuOpen(false)} />
+              <MobileNavItem to="/about-us" label="About Us" icon={<User className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
               <MobileNavItem
                 to="/programs/hiv-awareness"
                 label="HIV Awareness"
                 icon={<span className="hiv-ribbon-container mr-1"><span className="hiv-ribbon scale-[0.3]"/></span>}
                 onClick={() => setMenuOpen(false)}
               />
-              <MobileNavItem to="/programs/bw-self" label="BW-SELF Program" onClick={() => setMenuOpen(false)} />
-              <MobileNavItem to="/webinars" label="Webinar Series" onClick={() => setMenuOpen(false)} />
-              <MobileNavItem to="/resources" label="Resource Center" onClick={() => setMenuOpen(false)} />
-              <MobileNavItem to="/events" label="Events" icon={<Calendar className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
-              <MobileNavItem to="/blog" label="Blog" onClick={() => setMenuOpen(false)} />
-              <MobileNavItem to="/contact" label="Contact" onClick={() => setMenuOpen(false)} />
+              <MobileNavItem to="/programs/bw-self" label="BW-SELF Program" icon={<HeartHandshake className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
+              <MobileNavItem to="/webinars" label="Webinar Series" icon={<BookOpen className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
+              <MobileNavItem to="/resources" label="Resource Center" icon={<Info className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
+              <MobileNavItem to="/just-the-facts" label="Just The Facts" icon={<FileText className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
+              <MobileNavItem to="/blog" label="Blog" icon={<FileText className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
+              <MobileNavItem to="/contact" label="Contact" icon={<MapPin className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
 
               <div className="border-t pt-6 flex flex-col gap-3">
                 <Link to="/volunteer" onClick={() => setMenuOpen(false)}>

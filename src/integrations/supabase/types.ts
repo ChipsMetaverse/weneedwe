@@ -41,6 +41,30 @@ export type Database = {
           },
         ]
       }
+      contact_requests: {
+        Row: {
+          id: string
+          name: string
+          email: string
+          phone: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          email: string
+          phone?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          email?: string
+          phone?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
       donations: {
         Row: {
           amount: number

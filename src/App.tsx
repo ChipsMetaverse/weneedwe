@@ -10,12 +10,12 @@ import { AuthProvider } from './context/AuthContext'
 import Auth from './pages/Auth'
 import AboutUs from './pages/AboutUs'
 import VolunteerPage from './pages/Volunteer'
-import Events from './pages/Events'
 
 // Lazy-loaded pages for better performance
 const BWSELFProgram = lazy(() => import('./pages/programs/BWSELFProgram'))
 const WebinarSeries = lazy(() => import('./pages/programs/WebinarSeries'))
 const ResourceCenter = lazy(() => import('./pages/programs/ResourceCenter'))
+const JustTheFacts = lazy(() => import('./pages/programs/JustTheFacts'))
 const BlogPage = lazy(() => import('./pages/Blog'))
 const LinkageToHIVMedicalPlan = lazy(() => import('./pages/blog/LinkageToHIVMedicalPlan'))
 
@@ -120,10 +120,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/events',
+        path: '/just-the-facts',
         element: (
           <Suspense fallback={<Loading />}>
-            <Events />
+            <JustTheFacts />
           </Suspense>
         ),
       },

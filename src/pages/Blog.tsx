@@ -17,6 +17,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -301,11 +309,27 @@ const Blog = () => {
                         The PrEP In Black America Coalition addresses systemic barriers preventing Black communities from accessing HIV prevention tools. Through summits, webinars, and advocacy, we're working to make PrEP accessible to all who need it.
                       </CardDescription>
                       <div className="mt-3">
-                        <a href="https://prep4all.org/prepinblackamerica" target="_blank" rel="noopener noreferrer">
-                          <Button className="bg-red-600 hover:bg-red-700 text-lg">
-                            Learn More About PrEP
-                          </Button>
-                        </a>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button className="bg-red-600 hover:bg-red-700 text-lg">
+                              Learn More About PrEP
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-4xl p-0 overflow-hidden">
+                            <div className="aspect-video w-full">
+                              <iframe 
+                                width="100%" 
+                                height="100%" 
+                                src="https://www.youtube.com/embed/1gZcco1d3j4" 
+                                title="PrEP Information Video" 
+                                frameBorder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowFullScreen
+                                className="absolute inset-0 w-full h-full"
+                              ></iframe>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </div>
                     <div className="order-1 md:order-2">
@@ -325,26 +349,21 @@ const Blog = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                   <div className="aspect-video bg-gray-200 relative">
-                    <img 
-                      src="/images/BlackWomenandHivArticle.jpg" 
-                      alt="Black Women and HIV"
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center cursor-pointer">
-                        <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </div>
-                    </div>
+                    <a href="https://news.yahoo.com/hiv-aids-vaccine-why-dont-192203679.html" target="_blank" rel="noopener noreferrer" className="block absolute inset-0">
+                      <img 
+                        src="/photos/Covid-19.jpeg" 
+                        alt="COVID-19 Information"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </a>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">Black Women and HIV</h3>
-                    <p className="text-gray-700 mb-4">Understanding the specific challenges and disparities facing Black women in HIV prevention, treatment, and care.</p>
-                    <div className="flex items-center text-sm text-gray-500">
+                    <h3 className="text-xl font-bold mb-2">HIV/AIDS Vaccine: Why don't we have one after 37 years, when we have several for COVID-19...</h3>
+                    <p className="text-gray-700 mb-4">Ronald C. Desrosiers, Professor of Pathology</p>
+                    <div className="flex items-center text-sm text-gray-500 mb-4">
                       <span className="flex items-center">
                         <Clock className="h-4 w-4 mr-1" />
-                        6 min
+                        8 min read
                       </span>
                     </div>
                   </div>
@@ -361,25 +380,22 @@ const Blog = () => {
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2">Linkage to HIV Medical Plan</h3>
                     <p className="text-gray-700 mb-4">
-                      Linkage to care is the first step in engaging in HIV care and is typically defined as the completion of a first medical clinic visit within 30 days after an HIV diagnosis.
+                      Linkage to care... For persons newly diagnosed with HIV, ensuring rapid linkage to care and starting antiretroviral therapy, ideally within 7 days, is a key pillar of the national initiative.
                     </p>
-                    <p className="text-gray-700 mb-4">
-                      For persons newly diagnosed with HIV, ensuring rapid linkage to care and starting antiretroviral therapy, ideally within 7 days, is a key pillar of the national initiative, Ending the HIV Epidemic: A Plan for America.
-                    </p>
-                    <div className="flex items-center text-sm text-gray-500 mb-4">
+                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                       <span className="flex items-center">
                         <Clock className="h-4 w-4 mr-1" />
                         7 min read
                       </span>
+                      <a 
+                        href="/blog/linkage-to-hiv-medical-plan" 
+                        className="inline-block"
+                      >
+                        <Button className="bg-red-600 hover:bg-red-700 text-sm px-4 py-1 h-8">
+                          Read Full Article
+                        </Button>
+                      </a>
                     </div>
-                    <a 
-                      href="/blog/linkage-to-hiv-medical-plan" 
-                      className="inline-block"
-                    >
-                      <Button className="bg-red-600 hover:bg-red-700">
-                        Read Full Article
-                      </Button>
-                    </a>
                   </div>
                 </div>
               </div>

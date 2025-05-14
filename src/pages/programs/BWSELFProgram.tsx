@@ -5,6 +5,7 @@ import { useIntersectionObserver } from '@/utils/animations';
 import { ArrowRight, CheckCircle, Users, Heart, Award, Calendar, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { mainPrograms, webinarSeries } from '@/data/siteData';
 
 const BWSELFProgram = () => {
@@ -120,6 +121,38 @@ const BWSELFProgram = () => {
                       <li>Increase Awareness of PrEP for Black Women and Girls at Risk for HIV</li>
                       <li>Increase Funding Minority Research Grant Program</li>
                     </ul>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <h4 className="text-lg font-bold mb-4 text-red-800">Important HIV Awareness Dates</h4>
+                    
+                    <div className="flex justify-center mb-6">
+                      <img 
+                        src="/photos/Awarenessday.jpeg" 
+                        alt="HIV Awareness Days Infographic" 
+                        className="max-w-full h-auto rounded-lg shadow-sm"
+                      />
+                    </div>
+                    
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="awareness-dates">
+                        <AccordionTrigger className="text-red-700 font-medium">
+                          View Important HIV Awareness Dates
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="space-y-2 text-sm">
+                            <li><span className="font-semibold">National HIV Week of Prayer</span> - March 5 - 12</li>
+                            <li><span className="font-semibold">National Women & Girls HIV/AIDS Awareness</span> - March 9</li>
+                            <li><span className="font-semibold">National Youth HIV/AIDS Awareness Day</span> - April 9</li>
+                            <li><span className="font-semibold">National HIV Awareness Day</span> - May 17</li>
+                            <li><span className="font-semibold">HIV Long-Term Survivors Day</span> - June 5</li>
+                            <li><span className="font-semibold">National HIV Testing Day</span> - June 27</li>
+                            <li><span className="font-semibold">National HIV/AIDS Aging Awareness Day</span> - September 17</li>
+                            <li><span className="font-semibold">National World AIDS Day</span> - December 1</li>
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </div>
                 </div>
               </div>
