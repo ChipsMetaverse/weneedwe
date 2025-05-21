@@ -74,20 +74,6 @@ const AboutUs = () => {
                   className="object-cover w-full h-full"
                 />
               </div>
-              
-              <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6">
-                <div className="p-6 rounded-lg shadow-lg ribbon-card">
-                  <div className="flex items-center space-x-4">
-                    <div className="hiv-ribbon-container">
-                      <div className="hiv-ribbon"></div>
-                    </div>
-                    <div>
-                      <p className="font-medium text-primary">BW-SELF</p>
-                      <p className="text-sm text-muted-foreground">Support & Education</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

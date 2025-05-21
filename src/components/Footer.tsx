@@ -157,7 +157,7 @@ const Footer = () => {
               <span className="text-primary mr-1">
                 <Heart className="h-5 w-5 inline-block" />
               </span>
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">WeNeedWe</span>
+              <span className="text-primary">WeNeedWe</span>
             </a>
             <p className="text-muted-foreground mb-6 text-balance">
               Follow us on social media for all our latest news, updates and event information.

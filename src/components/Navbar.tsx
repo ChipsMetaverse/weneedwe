@@ -28,7 +28,7 @@ const Logo = () => (
       </div>
       <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-accent border-2 border-white animate-pulse" />
     </div>
-    <span className="font-display font-bold text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+    <span className="font-display font-bold text-2xl text-primary">
       WeneedWe
     </span>
   </Link>
