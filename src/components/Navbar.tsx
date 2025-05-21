@@ -39,7 +39,7 @@ const DesktopHIVInfo = () => (
   <div className="hidden lg:flex items-center bg-red-50 text-red-700 rounded-full px-3 py-1 mr-4 text-sm">
     <span className="font-semibold">Need an HIV Specialist?</span>
     <span className="mx-1">|</span>
-    <span className="font-bold">773-881-1711</span>
+    <a href="tel:7738811711" className="font-bold hover:underline cursor-pointer">773-881-1711</a>
   </div>
 );
 
@@ -102,12 +102,7 @@ const ProgramDropdown = () => (
       className="absolute top-full left-1/2 -translate-x-1/2 invisible group-hover:visible opacity-0 group-hover:opacity-100 glass p-2 rounded-xl shadow-lg min-w-48 flex flex-col transition-all duration-300 pt-2"
       role="menu"
     >
-      <NavLink to="/programs/hiv-awareness" className="menu-item">
-        <span className="hiv-ribbon-container mr-1">
-          <span className="hiv-ribbon scale-[0.4]" />
-        </span>
-        HIV Awareness
-      </NavLink>
+
       <NavLink to="/programs/bw-self" className="menu-item flex items-center gap-2">
         <HeartHandshake className="h-4 w-4 text-primary" /> BW-SELF Advocacy
       </NavLink>
@@ -135,7 +130,7 @@ const MobileNavItem = ({ to, label, icon, onClick }) => (
 const MobileHIVInfo = () => (
   <div className="bg-red-50 text-red-700 rounded-lg p-3 mb-4 text-center">
     <p className="font-semibold">Need an HIV Specialist?</p>
-    <p className="font-bold">Call: 773-881-1711</p>
+    <p className="font-bold">Call: <a href="tel:7738811711" className="hover:underline cursor-pointer">773-881-1711</a></p>
   </div>
 );
 
@@ -162,7 +157,7 @@ const Navbar = () => {
         <DesktopHIVInfo />
 
         <nav className="hidden md:flex items-center gap-4">
-          <NavItem to="/about-us">About Us</NavItem>
+          <NavItem to="/about-us">Home</NavItem>
           <ProgramDropdown />
           <NavItem to="/blog">Blog</NavItem>
           <NavLink to="/just-the-facts" className="hiv-awareness-badge flex items-center gap-1 hover:opacity-80 transition-opacity">
@@ -185,13 +180,8 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent className="w-[80vw] max-w-sm">
               <MobileHIVInfo />
-              <MobileNavItem to="/about-us" label="About Us" icon={<User className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
-              <MobileNavItem
-                to="/programs/hiv-awareness"
-                label="HIV Awareness"
-                icon={<span className="hiv-ribbon-container mr-1"><span className="hiv-ribbon scale-[0.3]"/></span>}
-                onClick={() => setMenuOpen(false)}
-              />
+              <MobileNavItem to="/about-us" label="Home" icon={<User className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
+
               <MobileNavItem to="/programs/bw-self" label="BW-SELF Program" icon={<HeartHandshake className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
               <MobileNavItem to="/webinars" label="Webinar Series" icon={<BookOpen className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />
               <MobileNavItem to="/resources" label="Resource Center" icon={<Info className="h-4 w-4 text-primary" />} onClick={() => setMenuOpen(false)} />

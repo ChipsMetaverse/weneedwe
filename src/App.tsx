@@ -18,6 +18,7 @@ const ResourceCenter = lazy(() => import('./pages/programs/ResourceCenter'))
 const JustTheFacts = lazy(() => import('./pages/programs/JustTheFacts'))
 const BlogPage = lazy(() => import('./pages/Blog'))
 const LinkageToHIVMedicalPlan = lazy(() => import('./pages/blog/LinkageToHIVMedicalPlan'))
+const DonatePage = lazy(() => import('./pages/Donate'))
 
 // Loading component for Suspense fallback
 const Loading = () => (
@@ -116,6 +117,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <LinkageToHIVMedicalPlan />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/donate',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <DonatePage />
           </Suspense>
         ),
       },

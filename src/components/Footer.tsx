@@ -42,7 +42,6 @@ const Footer = () => {
     { name: 'About', url: '/about-us' },
     { name: 'Just The Facts', url: '/just-the-facts' },
     { name: 'BW-SELF Program', url: '/programs/bw-self' },
-    { name: 'HIV Awareness', url: '/programs/hiv-awareness' },
     { name: 'Webinar Series', url: '/webinars' },
     { name: 'Resource Center', url: '/resources' },
     { name: 'Blog', url: '/blog' },

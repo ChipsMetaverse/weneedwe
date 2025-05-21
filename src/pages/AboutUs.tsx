@@ -49,7 +49,11 @@ const AboutUs = () => {
               </p>
               
               <div className="flex flex-wrap gap-4">
-                <Button variant="default" size="lg">
+                <Button 
+                  variant="default" 
+                  size="lg"
+                  onClick={() => window.open('/programs/bw-self', '_self')}
+                >
                   Learn More
                 </Button>
                 <Button 
@@ -123,19 +127,7 @@ const AboutUs = () => {
                 </div>
               </div>
               
-              <div className="absolute -bottom-5 -left-5 md:-bottom-8 md:-left-8">
-                <div className="p-6 bg-white rounded-lg shadow-lg ribbon-card">
-                  <div className="flex items-center space-x-3">
-                    <div className="hiv-ribbon-container">
-                      <div className="hiv-ribbon"></div>
-                    </div>
-                    <p className="text-xl font-bold text-red-500">DONATE NOW</p>
-                  </div>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Support our Prevention for Positives HIV Support
-                  </p>
-                </div>
-              </div>
+
             </div>
             
             <div className="bg-white p-8 rounded-lg shadow-lg">
