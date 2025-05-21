@@ -95,16 +95,34 @@ const Footer = () => {
     
     try {
       // Insert the contact form data into Supabase
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('contact_requests')
         .insert([{
           name: formState.name,
           email: formState.email,
           phone: formState.phone || null,
+          source: 'weneedwe.org',
           created_at: new Date().toISOString()
-        }]);
+        }])
+        .select();
       
       if (error) throw error;
+      
+      // Send webhook to contact-notification function to trigger email
+      if (data && data.length > 0) {
+        try {
+          const { error: webhookError } = await supabase.functions.invoke('contact-notification', {
+            body: { record: data[0] }
+          });
+          
+          if (webhookError) {
+            console.warn('Email notification may not have been sent:', webhookError);
+          }
+        } catch (notifyError) {
+          console.warn('Failed to trigger email notification:', notifyError);
+          // Continue with success flow even if notification fails
+        }
+      }
       
       setIsSubmitted(true);
       setFormState({
