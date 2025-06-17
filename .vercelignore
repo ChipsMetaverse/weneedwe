@@ -1,0 +1,143 @@
+# Documentation and markdown files
+*.md
+README.md
+CLAUDE.md
+DEPLOYMENT_HANDOFF.md
+URGENT_FIX_BLANK_PAGE.md
+build.md
+contexthist.md
+deploy-guide.md
+openai.md
+progress.md
+readme.md
+vercel-deploy-guide.md
+webinarseries.md
+
+# Scripts and development files
+*.sh
+*.py
+deploy.sh
+browser_test.py
+setup_edge_function_vars.sh
+test_notify.sh
+test_volunteer_notify.sh
+debug_email_function.sh
+apply_contact_submissions.sh
+deploy_notify_function.sh
+deploy-to-chipsmetaverse.sh
+build-production.sh
+scripts/
+
+# Development and test files
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+__tests__
+tests
+test
+cypress
+playwright
+
+# Source control
+.git
+.github
+.gitignore
+.gitattributes
+
+# Editor and IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Development dependencies and config
+node_modules
+.eslintrc*
+.prettierrc*
+.stylelintrc*
+jest.config.*
+vitest.config.*
+playwright.config.*
+cypress.config.*
+
+# Environment files (these are handled by Vercel env vars)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.example
+
+# Build artifacts and caches
+dist
+.vercel
+.next
+.nuxt
+.cache
+.parcel-cache
+.turbo
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+.tmp
+.temp
+tmp
+temp
+
+# Documentation assets
+docs
+documentation
+*.pdf
+*.doc
+*.docx
+photo-inventory.md
+summary.md
+
+# Storybook
+.storybook
+storybook-static
+*.stories.js
+*.stories.ts
+*.stories.jsx
+*.stories.tsx
+
+# Package manager files (except package.json and lock files)
+.npm
+.yarn
+.pnpm-store
+.yarnrc*
+.npmrc*
+pnpm-workspace.yaml
+
+# Misc development files
+Makefile
+Dockerfile*
+docker-compose*
+.dockerignore
+*.sql
+*.sqlite
+*.db
+
+# Keep only production build output
+!dist
+!package.json
+!package-lock.json
+!yarn.lock
+!pnpm-lock.yaml
+!vercel.json
+!tsconfig.json
+!vite.config.ts
+!postcss.config.js
+!tailwind.config.ts
+!index.html
+!public
+!src

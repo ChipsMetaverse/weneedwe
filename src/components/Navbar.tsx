@@ -59,7 +59,7 @@ const AuthButtons = ({ user, loading, signOut }) => {
     </div>
   ) : (
     <div className="flex items-center gap-2">
-      <Link to="/volunteer" className="hidden sm:flex items-center gap-1 button-outline">
+      <Link to="/volunteer" className="hidden sm:flex items-center gap-1 button-outline px-6 py-2 rounded-full">
         <Heart className="h-4 w-4 text-primary" /> Volunteer
       </Link>
       <Link to="/donate" className="hidden sm:flex items-center gap-1 button-primary px-6 py-2 rounded-full">
